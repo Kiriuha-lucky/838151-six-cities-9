@@ -1,4 +1,4 @@
-import {RoomCard} from '../room-card/room-card';
+import {PlaceCard} from '../place-card/place-card';
 
 interface MainProps {
   offersCount: number
@@ -95,11 +95,11 @@ export function Main({offersCount}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <RoomCard />
-                <RoomCard />
-                <RoomCard />
-                <RoomCard />
-                <RoomCard />
+                <PlaceCard />
+                <PlaceCard />
+                <PlaceCard />
+                <PlaceCard />
+                <PlaceCard />
               </div>
             </section>
             <div className="cities__right-section">
