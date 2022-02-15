@@ -1,13 +1,11 @@
-import Main from '../main/main';
+import {Main} from '../main/main';
 
 interface AppProps {
   offersCount: number
 }
 
-function App({offersCount}: AppProps): JSX.Element {
+export function App({offersCount}: AppProps): JSX.Element {
   return (
-    <Main offerCount = {offersCount}/>
+    <Main offersCount = {offersCount}/>
   );
 }
-
-export default App;

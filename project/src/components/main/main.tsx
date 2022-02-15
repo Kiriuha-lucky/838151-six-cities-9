@@ -1,11 +1,11 @@
-import RoomCard from '../room-card/room-card';
+import {RoomCard} from '../room-card/room-card';
 
 interface MainProps {
-  offersCount: number;
-};
+  offersCount: number
+}
 
 
-function Main({offersCount}: MainProps): JSX.Element {
+export function Main({offersCount}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -111,5 +111,3 @@ function Main({offersCount}: MainProps): JSX.Element {
     </div>
   );
 }
-
-export default Main;

@@ -1,4 +1,4 @@
-function Room(): JSX.Element {
+export function Room(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -465,5 +465,3 @@ function Room(): JSX.Element {
     </div>
   );
 }
-
-export default Room;
