@@ -2,15 +2,17 @@ import { Main } from '../main/main';
 
 interface AppProps {
   offersCount: number,
-  offers: {
-    id: number,
-    mark: boolean,
-    previewImage: string,
-    price: number,
-    rating: number,
-    name: string,
-    type: string,
-  }[]
+  offers: Offer[]
+}
+
+export interface Offer {
+  id: number,
+  mark: boolean,
+  previewImage: string,
+  price: number,
+  rating: number,
+  name: string,
+  type: string,
 }
 
 export function App({ offersCount, offers }: AppProps): JSX.Element {

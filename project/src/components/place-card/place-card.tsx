@@ -1,16 +1,10 @@
-interface PlaceCardProps {
-  offer: {
-    id: number,
-    mark: boolean,
-    previewImage: string,
-    price: number,
-    rating: number,
-    name: string,
-    type: string
-  }
+import {Offer} from '../app/app';
+
+interface placeCardProps {
+  offer: Omit<Offer, 'id'>
 }
 
-export function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
+export function PlaceCard({ offer }: placeCardProps): JSX.Element {
   return (
     <article className="cities__place-card place-card">
       {offer.mark &&

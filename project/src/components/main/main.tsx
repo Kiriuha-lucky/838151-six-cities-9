@@ -1,16 +1,9 @@
 import {PlaceCard} from '../place-card/place-card';
+import {Offer} from '../app/app';
 
 interface MainProps {
   offersCount: number,
-  offers: {
-    id:number,
-    mark: boolean,
-    previewImage: string,
-    price: number,
-    rating: number,
-    name: string,
-    type: string
-  }[]
+  offers: Offer[]
 }
 
 export function Main({offersCount, offers}: MainProps): JSX.Element {
@@ -86,7 +79,7 @@ export function Main({offersCount, offers}: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
