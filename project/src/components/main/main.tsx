@@ -1,11 +1,19 @@
 import {PlaceCard} from '../place-card/place-card';
 
 interface MainProps {
-  offersCount: number
+  offersCount: number,
+  offers: {
+    id:number,
+    mark: boolean,
+    previewImage: string,
+    price: number,
+    rating: number,
+    name: string,
+    type: string
+  }[]
 }
 
-
-export function Main({offersCount}: MainProps): JSX.Element {
+export function Main({offersCount, offers}: MainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -78,7 +86,7 @@ export function Main({offersCount}: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -95,11 +103,7 @@ export function Main({offersCount}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
-                <PlaceCard />
+                {offers.map((offer) => <PlaceCard key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">

@@ -1,11 +1,20 @@
-import {Main} from '../main/main';
+import { Main } from '../main/main';
 
 interface AppProps {
-  offersCount: number
+  offersCount: number,
+  offers: {
+    id: number,
+    mark: boolean,
+    previewImage: string,
+    price: number,
+    rating: number,
+    name: string,
+    type: string,
+  }[]
 }
 
-export function App({offersCount}: AppProps): JSX.Element {
+export function App({ offersCount, offers }: AppProps): JSX.Element {
   return (
-    <Main offersCount = {offersCount}/>
+    <Main offersCount={offersCount} offers={offers} />
   );
 }
