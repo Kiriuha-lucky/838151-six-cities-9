@@ -8,7 +8,7 @@ interface AppProps {
 export interface Offer {
   id: number,
   mark: boolean,
-  previewImage: string,
+  previewImageSrc: string,
   price: number,
   rating: number,
   name: string,

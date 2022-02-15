@@ -8,7 +8,7 @@ const OFFERS = [
   {
     id: 1,
     mark: true,
-    previewImage: 'img/apartment-01.jpg',
+    previewImageSrc: 'img/apartment-01.jpg',
     price: 120,
     rating: 80,
     name: 'Beautiful &amp; luxurious apartment at great location',
@@ -17,7 +17,7 @@ const OFFERS = [
   {
     id: 2,
     mark: false,
-    previewImage: 'img/room.jpg',
+    previewImageSrc: 'img/room.jpg',
     price: 80,
     rating: 80,
     name: 'Wood and stone place',
@@ -26,7 +26,7 @@ const OFFERS = [
   {
     id: 3,
     mark: false,
-    previewImage: 'img/apartment-02.jpg',
+    previewImageSrc: 'img/apartment-02.jpg',
     price: 132,
     rating: 80,
     name: 'Canal View Prinsengracht',
@@ -35,7 +35,7 @@ const OFFERS = [
   {
     id: 4,
     mark: false,
-    previewImage: 'img/apartment-03.jpg',
+    previewImageSrc: 'img/apartment-03.jpg',
     price: 180,
     rating: 100,
     name: 'Nice, cozy, warm big bed apartment',
@@ -44,7 +44,7 @@ const OFFERS = [
   {
     id: 5,
     mark: false,
-    previewImage: 'img/room.jpg',
+    previewImageSrc: 'img/room.jpg',
     price: 80,
     rating: 80,
     name: 'Wood and stone place',
