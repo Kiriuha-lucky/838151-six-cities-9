@@ -1,8 +1,12 @@
 import Main from '../main/main';
 
-function App(): JSX.Element {
+type AppScreenProps = {
+  offerCount: number;
+};
+
+function App({offerCount}: AppScreenProps): JSX.Element {
   return (
-    <Main />
+    <Main offerCount = {offerCount}/>
   );
 }
 
