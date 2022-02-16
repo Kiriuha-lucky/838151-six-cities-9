@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/app/app';
+import { App, Offer } from './components/app/app';
 
 const OFFERS_COUNT = 100;
 
-const OFFERS = [
+const OFFERS: Offer[] = [
   {
     id: 1,
     mark: true,
