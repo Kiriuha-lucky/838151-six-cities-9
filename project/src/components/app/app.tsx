@@ -4,7 +4,8 @@ import { Property } from '../property/property';
 import { Favorites } from '../favorites/favorites';
 import { NotFound } from '../not-found/not-found';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../types/routes.types';
+import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
 
 interface AppProps {
