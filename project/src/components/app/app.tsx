@@ -42,7 +42,7 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <Favorites />
             </PrivateRoute>
           }

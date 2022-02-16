@@ -1,5 +1,6 @@
 import { PlaceCard } from '../place-card/place-card';
 import { Offer } from '../app/app';
+import {Link} from 'react-router-dom';
 interface MainProps {
   offersCount: number,
   offers: Offer[]
@@ -12,9 +13,9 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <div className="header__logo-link header__logo-link--active">
+              <Link className="header__logo-link header__logo-link--active" to="/">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </div>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
