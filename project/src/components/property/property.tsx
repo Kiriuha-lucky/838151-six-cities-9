@@ -1,4 +1,4 @@
-export function Room(): JSX.Element {
+export function Property(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
