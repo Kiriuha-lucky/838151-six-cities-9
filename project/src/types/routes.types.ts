@@ -1,4 +1,4 @@
-export enum AppRoute {
+export enum AppRoutes {
   Main = '/',
   Favorites = '/favorites',
   Login = '/login',

@@ -4,7 +4,7 @@ import { Property } from '../property/property';
 import { Favorites } from '../favorites/favorites';
 import { NotFound } from '../not-found/not-found';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute } from '../../types/routes.types';
+import { AppRoutes } from '../../types/routes.types';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
 
@@ -28,19 +28,19 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route
-          path={AppRoute.Main}
+          path={AppRoutes.Main}
           element={<Main offersCount={offersCount} offers={offers} />}
         />
         <Route
-          path={AppRoute.Login}
+          path={AppRoutes.Login}
           element={<Login />}
         />
         <Route
-          path={AppRoute.Property}
+          path={AppRoutes.Property}
           element={<Property />}
         />
         <Route
-          path={AppRoute.Favorites}
+          path={AppRoutes.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <Favorites />
