@@ -2,16 +2,16 @@ import {Offer} from '../app/app';
 
 type PlaceCardProps = Omit<Offer, 'id'>;
 
-export function PlaceCard({ mark, previewImageSrc, price, rating, name, type }: PlaceCardProps): JSX.Element {
+export function PlaceCard({ isFavorite, previewImage, price, rating, title, type }: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__place-card place-card">
-      {mark &&
+      {isFavorite &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={previewImageSrc} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -34,7 +34,7 @@ export function PlaceCard({ mark, previewImageSrc, price, rating, name, type }: 
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{name}</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
