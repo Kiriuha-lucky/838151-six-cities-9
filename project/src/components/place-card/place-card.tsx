@@ -1,8 +1,7 @@
 import {Offer} from '../app/app';
+import {Link} from 'react-router-dom';
 
-type PlaceCardProps = Omit<Offer, 'id'>;
-
-export function PlaceCard({ isFavorite, previewImage, price, rating, title, type }: PlaceCardProps): JSX.Element {
+export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type }: Offer): JSX.Element {
   return (
     <article className="cities__place-card place-card">
       {isFavorite &&
@@ -34,7 +33,7 @@ export function PlaceCard({ isFavorite, previewImage, price, rating, title, type
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
