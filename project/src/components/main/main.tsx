@@ -1,6 +1,6 @@
-import { PlaceCard } from '../place-card/place-card';
 import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
+import { OffersList } from '../offers-list/offers-list';
 interface MainProps {
   offersCount: number,
   offers: Offer[]
@@ -95,12 +95,7 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <ul className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => {
-                  const { id } = offer;
-                  return <li key={id}><PlaceCard {...offer} /></li>;
-                })}
-              </ul>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
