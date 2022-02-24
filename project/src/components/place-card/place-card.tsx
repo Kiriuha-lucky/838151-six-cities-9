@@ -1,6 +1,6 @@
-import {Offer} from '../app/app';
-import {Link} from 'react-router-dom';
-import {RatingStars} from '../rating-stars/rating-stars';
+import { Offer } from '../app/app';
+import { Link } from 'react-router-dom';
+import { RatingStars } from '../rating-stars/rating-stars';
 
 export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type }: Offer): JSX.Element {
   return (
@@ -27,7 +27,9 @@ export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, 
             <span className="visually-hidden">To bookmarks</span>
           </button>
         </div>
-        <RatingStars rating={rating} />
+        <div className="place-card__rating rating">
+          <RatingStars rating={rating} component='place-card' />
+        </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>

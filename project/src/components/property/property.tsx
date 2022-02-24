@@ -3,6 +3,7 @@ import { OFFERS } from '../../mocks/offers';
 import { OfferImage } from '../offer-image';
 import { Offer } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
+import { RatingStars } from '../rating-stars/rating-stars';
 
 export function Property(): JSX.Element {
   const offerId = useParams().id;
@@ -74,11 +75,9 @@ export function Property(): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-                <div className="property__stars rating__stars">
-                  <span style={{ width: '80%' }} />
-                  <span className="visually-hidden">Rating</span>
-                </div>
-                <span className="property__rating-value rating__value">{OFFER.rating}</span>
+                <RatingStars rating={OFFER.rating} component='property'>
+                  <span className="property__rating-value rating__value">{OFFER.rating}</span>
+                </RatingStars>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">

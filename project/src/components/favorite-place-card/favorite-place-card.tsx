@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../app/app';
 import { RatingStars } from '../rating-stars/rating-stars';
 
-export function FavoritePlaceCard({ isPremium, previewImage, price, type, title, rating }: Offer): JSX.Element {
+export function FavoritePlaceCard({ id, isPremium, previewImage, price, type, title, rating }: Offer): JSX.Element {
   return (
     <article className="favorites__card place-card">
       {isPremium &&
@@ -26,9 +27,9 @@ export function FavoritePlaceCard({ isPremium, previewImage, price, type, title,
             <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
-        <RatingStars rating={rating} />
+        <RatingStars rating={rating} component='place-card' />
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
