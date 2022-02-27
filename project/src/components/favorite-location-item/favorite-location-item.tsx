@@ -3,17 +3,17 @@ import {Offer} from '../app/app';
 import { FavoritePlaceCard } from '../favorite-place-card/favorite-place-card';
 
 interface FavoriteLocationItemProps {
-  city: string,
+  cityName: string,
   offers: Offer[]
 }
 
-export function FavoriteLocationItem({ city, offers }: FavoriteLocationItemProps): JSX.Element {
+export function FavoriteLocationItem({ cityName, offers }: FavoriteLocationItemProps): JSX.Element {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link className="locations__item-link" to="/">
-            <span>{city}</span>
+            <span>{cityName}</span>
           </Link>
         </div>
       </div>
