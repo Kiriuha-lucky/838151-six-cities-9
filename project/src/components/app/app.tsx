@@ -68,7 +68,7 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
           path={AppRoutes.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <Favorites />
+              <Favorites offers={offers}/>
             </PrivateRoute>
           }
         />

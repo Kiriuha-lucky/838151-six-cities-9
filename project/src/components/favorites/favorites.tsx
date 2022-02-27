@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom';
-import { OFFERS } from '../../mocks/offers';
+import { Offer } from '../app/app';
 import { FavoriteLocationItem } from '../favorite-location-item/favorite-location-item';
 
-export function Favorites(): JSX.Element {
+interface FavoritesProps {
+  offers: Offer[]
+}
 
-  const cityNames = OFFERS.reduce((uniqCity: string[], offer) => {
+export function Favorites({ offers }: FavoritesProps): JSX.Element {
+
+  const cityNames = offers.reduce((uniqCity: string[], offer) => {
     if (uniqCity.indexOf(offer.city.name) === -1) {
       uniqCity.push(offer.city.name);
     }
@@ -13,7 +17,7 @@ export function Favorites(): JSX.Element {
 
 
   function filterByCity(city: string) {
-    return OFFERS.filter((offer) => offer.city.name === city);
+    return offers.filter((offer) => offer.city.name === city);
   }
 
   return (
