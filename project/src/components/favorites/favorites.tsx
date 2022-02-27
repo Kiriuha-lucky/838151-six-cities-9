@@ -15,11 +15,6 @@ export function Favorites({ offers }: FavoritesProps): JSX.Element {
     return uniqCityNames;
   }, []);
 
-
-  function filterByCity(city: string) {
-    return offers.filter((offer) => offer.city.name === city);
-  }
-
   return (
     <div className="page">
       <header className="header">
@@ -55,7 +50,7 @@ export function Favorites({ offers }: FavoritesProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={filterByCity(city)} />)}
+              {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={offers.filter((offer) => offer.city.name === city)} />)}
             </ul>
           </section>
         </div>
