@@ -8,11 +8,11 @@ interface FavoritesProps {
 
 export function Favorites({ offers }: FavoritesProps): JSX.Element {
 
-  const cityNames = offers.reduce((uniqCity: string[], offer) => {
-    if (uniqCity.indexOf(offer.city.name) === -1) {
-      uniqCity.push(offer.city.name);
+  const cityNames = offers.reduce((uniqCityNames: string[], offer) => {
+    if (uniqCityNames.indexOf(offer.city.name) === -1) {
+      uniqCityNames.push(offer.city.name);
     }
-    return uniqCity;
+    return uniqCityNames;
   }, []);
 
 
