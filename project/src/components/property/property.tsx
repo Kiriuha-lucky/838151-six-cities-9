@@ -9,11 +9,12 @@ interface PropertyProps {
   offers: Offer[]
 }
 
+const IMG_COUNT_ON_OFFER_PAGE = 6;
+
 export function Property({offers}: PropertyProps): JSX.Element {
   const offerId = useParams().id;
-  const OFFER: Offer = offers.filter((offer) => offer.id === Number(offerId))[0];
-  const IMG_COUNT_ON_OFFER_PAGE = 6;
-  const OFFERIMAGES = OFFER.images.slice(0, IMG_COUNT_ON_OFFER_PAGE);
+  const offersCurrent: Offer = offers.filter((offer) => offer.id === Number(offerId))[0];
+  const offerImages = offersCurrent.images.slice(0, IMG_COUNT_ON_OFFER_PAGE);
 
   return (
     <div className="page">
@@ -58,18 +59,18 @@ export function Property({offers}: PropertyProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {OFFERIMAGES.map((image) => <OfferImage key={image} image={image} />)}
+              {offerImages.map((image) => <OfferImage key={image} image={image} />)}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {OFFER.isFavorite &&
+              {offersCurrent.isFavorite &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {OFFER.title}
+                  {offersCurrent.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
@@ -79,29 +80,29 @@ export function Property({offers}: PropertyProps): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-                <RatingStars rating={OFFER.rating} component='property'>
-                  <span className="property__rating-value rating__value">{OFFER.rating}</span>
+                <RatingStars rating={offersCurrent.rating} component='property'>
+                  <span className="property__rating-value rating__value">{offersCurrent.rating}</span>
                 </RatingStars>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {OFFER.type}
+                  {offersCurrent.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {`${OFFER.bedrooms} Bedrooms`}
+                  {`${offersCurrent.bedrooms} Bedrooms`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  {`Max ${OFFER.maxAdults} adults`}
+                  {`Max ${offersCurrent.maxAdults} adults`}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">{`€${OFFER.price}`}</b>
+                <b className="property__price-value">{`€${offersCurrent.price}`}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {OFFER.goods.map((good) => <OfferInsideItem key={good} item={good} />)}
+                  {offersCurrent.goods.map((good) => <OfferInsideItem key={good} item={good} />)}
                 </ul>
               </div>
               <div className="property__host">
@@ -110,19 +111,19 @@ export function Property({offers}: PropertyProps): JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={`${OFFER.host.avatarUrl}`}
+                      src={`${offersCurrent.host.avatarUrl}`}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">{OFFER.host.name}</span>
-                  {OFFER.host.isPro &&
+                  <span className="property__user-name">{offersCurrent.host.name}</span>
+                  {offersCurrent.host.isPro &&
                     <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {OFFER.description}
+                    {offersCurrent.description}
                   </p>
                 </div>
               </div>
