@@ -102,7 +102,7 @@ export function Property({offers}: PropertyProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offersCurrent.goods.map((good) => <OfferInsideItem key={good} item={good} />)}
+                  {offersCurrent.goods.map((good) => <OfferInsideItem key={good} goodName={good} />)}
                 </ul>
               </div>
               <div className="property__host">

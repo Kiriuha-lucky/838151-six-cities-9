@@ -1,9 +1,9 @@
 interface OfferInsideItemProps {
-  item: string
+  goodName: string
 }
 
-export function OfferInsideItem({item}: OfferInsideItemProps): JSX.Element {
+export function OfferInsideItem({goodName}: OfferInsideItemProps): JSX.Element {
   return (
-    <li className="property__inside-item">{item}</li>
+    <li className="property__inside-goodName">{goodName}</li>
   );
 }
