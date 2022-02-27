@@ -7,17 +7,13 @@ interface OffersListProps {
 }
 
 export function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState(0);
-
-  const cardEnterHandle = (id: number) => {
-    setActiveCard(id);
-  };
+  const [activeCard, setActiveCard] = useState<number>();
 
   return (
     <ul className="cities__places-list places__list tabs__content">
       {offers.map((offer) => {
         const { id } = offer;
-        return <li key={id}>{activeCard}<PlaceCard {...offer} setActiveCard={cardEnterHandle} /></li>;
+        return <li key={id} onMouseEnter={() => { setActiveCard(id); }}>{activeCard}<PlaceCard {...offer} /></li>;
       })}
     </ul>
   );

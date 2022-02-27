@@ -2,13 +2,9 @@ import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
 
-type PlaceCardProps = Offer & {
-  setActiveCard: any
-}
-
-export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type, setActiveCard }: PlaceCardProps): JSX.Element {
+export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type }: Offer): JSX.Element {
   return (
-    <article className="cities__place-card place-card" onMouseEnter={() => setActiveCard(id)}>
+    <article className="cities__place-card place-card">
       {isFavorite &&
         <div className="place-card__mark">
           <span>Premium</span>
