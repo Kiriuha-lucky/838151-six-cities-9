@@ -1,4 +1,6 @@
-export const OFFERS = [
+import { Offer } from '../components/app/app';
+
+export const OFFERS: Offer[] = [
   {
     city: {
       name: 'Cologne',
