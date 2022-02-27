@@ -1,14 +1,17 @@
 import { useState } from 'react';
 
 export function ReviewForm(): JSX.Element {
-  const [review, setReview] = useState({
-    rating: 0,
-    review: '',
-  });
+  const [rating, setRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
 
-  const fieldChangeHandle = (evt: any) => {
-    const { name, value } = evt.target;
-    setReview({ ...review, [name]: value });
+  const ratingChangeHandle = (evt: any) => {
+    const { value } = evt.target;
+    setRating(value);
+  };
+
+  const reviewTextChangeHandle = (evt: any) => {
+    const { value } = evt.target;
+    setReviewText(value);
   };
 
   return (
@@ -18,12 +21,13 @@ export function ReviewForm(): JSX.Element {
       </label>
       <div className="reviews__rating-form form__rating">
         <input
-          onChange={fieldChangeHandle}
+          onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={5}
           id="5-stars"
           type="radio"
+          value={rating}
         />
         <label
           htmlFor="5-stars"
@@ -35,12 +39,13 @@ export function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
-          onChange={fieldChangeHandle}
+          onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={4}
           id="4-stars"
           type="radio"
+          value={rating}
         />
         <label
           htmlFor="4-stars"
@@ -52,12 +57,13 @@ export function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
-          onChange={fieldChangeHandle}
+          onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={3}
           id="3-stars"
           type="radio"
+          value={rating}
         />
         <label
           htmlFor="3-stars"
@@ -69,12 +75,13 @@ export function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
-          onChange={fieldChangeHandle}
+          onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={2}
           id="2-stars"
           type="radio"
+          value={rating}
         />
         <label
           htmlFor="2-stars"
@@ -86,12 +93,13 @@ export function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
-          onChange={fieldChangeHandle}
+          onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={1}
           id="1-star"
           type="radio"
+          value={rating}
         />
         <label
           htmlFor="1-star"
@@ -104,12 +112,13 @@ export function ReviewForm(): JSX.Element {
         </label>
       </div>
       <textarea
-        onChange={fieldChangeHandle}
+        onChange={reviewTextChangeHandle}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
+        value={reviewText}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
