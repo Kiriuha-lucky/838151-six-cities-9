@@ -59,7 +59,7 @@ export function Property({offers}: PropertyProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offerImages.map((image) => <OfferImage key={image} image={image} />)}
+              {offerImages.map((image) => <OfferImage key={image} imageSrc={image} />)}
             </div>
           </div>
           <div className="property__container container">

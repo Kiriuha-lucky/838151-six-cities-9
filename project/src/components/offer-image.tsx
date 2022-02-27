@@ -1,13 +1,13 @@
 interface OfferImagesProps {
-  image: string
+  imageSrc: string
 }
 
-export function OfferImage({image}:OfferImagesProps): JSX.Element {
+export function OfferImage({imageSrc}:OfferImagesProps): JSX.Element {
   return (
     <div className="property__image-wrapper">
       <img
         className="property__image"
-        src={image}
+        src={imageSrc}
         alt="Photo studio"
       />
     </div>
