@@ -62,7 +62,7 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoutes.Property}
-          element={<Property />}
+          element={<Property offers={offers} />}
         />
         <Route
           path={AppRoutes.Favorites}

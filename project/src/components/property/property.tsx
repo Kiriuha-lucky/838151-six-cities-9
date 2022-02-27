@@ -1,14 +1,17 @@
 import { Link, useParams } from 'react-router-dom';
-import { OFFERS } from '../../mocks/offers';
 import { OfferImage } from '../offer-image';
 import { Offer } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { ReviewForm } from '../review-form/review-form';
 
-export function Property(): JSX.Element {
+interface PropertyProps {
+  offers: Offer[]
+}
+
+export function Property({offers}: PropertyProps): JSX.Element {
   const offerId = useParams().id;
-  const OFFER: Offer = OFFERS.filter((offer) => offer.id === Number(offerId))[0];
+  const OFFER: Offer = offers.filter((offer) => offer.id === Number(offerId))[0];
   const IMG_COUNT_ON_OFFER_PAGE = 6;
   const OFFERIMAGES = OFFER.images.slice(0, IMG_COUNT_ON_OFFER_PAGE);
 
