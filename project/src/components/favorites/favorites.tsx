@@ -4,7 +4,7 @@ import { FavoriteLocationItem } from '../favorite-location-item/favorite-locatio
 
 export function Favorites(): JSX.Element {
 
-  const UNIQUE_CITYS = OFFERS.reduce((uniqCity: string[], offer) => {
+  const cityNames = OFFERS.reduce((uniqCity: string[], offer) => {
     if (uniqCity.indexOf(offer.city.name) === -1) {
       uniqCity.push(offer.city.name);
     }
@@ -51,7 +51,7 @@ export function Favorites(): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {UNIQUE_CITYS.map((city) => <FavoriteLocationItem key={city} city={city} offers={filterByCity(city)} />)}
+              {cityNames.map((city) => <FavoriteLocationItem key={city} city={city} offers={filterByCity(city)} />)}
             </ul>
           </section>
         </div>
