@@ -7,6 +7,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.types';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
+import { REVIEWS } from '../../mocks/reviews';
 
 interface AppProps {
   offersCount: number,
@@ -48,7 +49,7 @@ export interface Offer {
   type: string,
 }
 
-export interface Review {
+export interface ReviewType {
   comment: string
   date: string,
   id: number,
@@ -75,7 +76,7 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoutes.Property}
-          element={<Property offers={offers} />}
+          element={<Property offers={offers} reviews={REVIEWS} />}
         />
         <Route
           path={AppRoutes.Favorites}

@@ -1,17 +1,19 @@
 import { Link, useParams } from 'react-router-dom';
 import { OfferImage } from '../offer-image';
-import { Offer } from '../app/app';
+import { Offer, ReviewType } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { ReviewForm } from '../review-form/review-form';
+import { Review } from '../review/review';
 
 interface PropertyProps {
-  offers: Offer[]
+  offers: Offer[],
+  reviews: ReviewType[]
 }
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
 
-export function Property({offers}: PropertyProps): JSX.Element {
+export function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const offerId = useParams().id;
   const offersCurrent: Offer = offers.filter((offer) => offer.id === Number(offerId))[0];
   const offerImages = offersCurrent.images.slice(0, IMG_COUNT_ON_OFFER_PAGE);
@@ -129,39 +131,10 @@ export function Property({offers}: PropertyProps): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                  Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width={54}
-                          height={54}
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by
-                        the unique lightness of Amsterdam. The building is green and
-                        from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
-                      </time>
-                    </div>
-                  </li>
+                  {reviews.map((review) => (<li key={review.id} className="reviews__item"><Review {...review} /></li>))}
                 </ul>
                 <ReviewForm />
               </section>

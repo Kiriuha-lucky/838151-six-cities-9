@@ -24,7 +24,6 @@ export function ReviewForm(): JSX.Element {
           onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={5}
           id="5-stars"
           type="radio"
           value={rating}
@@ -42,7 +41,6 @@ export function ReviewForm(): JSX.Element {
           onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={4}
           id="4-stars"
           type="radio"
           value={rating}
@@ -60,7 +58,6 @@ export function ReviewForm(): JSX.Element {
           onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={3}
           id="3-stars"
           type="radio"
           value={rating}
@@ -78,7 +75,6 @@ export function ReviewForm(): JSX.Element {
           onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={2}
           id="2-stars"
           type="radio"
           value={rating}
@@ -96,7 +92,6 @@ export function ReviewForm(): JSX.Element {
           onChange={ratingChangeHandle}
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={1}
           id="1-star"
           type="radio"
           value={rating}
@@ -117,7 +112,6 @@ export function ReviewForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
         value={reviewText}
       />
       <div className="reviews__button-wrapper">
