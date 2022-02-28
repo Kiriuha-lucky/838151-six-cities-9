@@ -1,4 +1,6 @@
-export const REVIEWS = [
+import {Review} from '../components/app/app';
+
+export const REVIEWS: Review[] = [
   {
     id: 1,
     user: {

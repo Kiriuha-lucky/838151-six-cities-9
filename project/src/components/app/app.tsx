@@ -48,6 +48,19 @@ export interface Offer {
   type: string,
 }
 
+export interface Review {
+  comment: string
+  date: string,
+  id: number,
+  rating: number,
+  user: {
+    avatarUrl: string,
+    id: number,
+    isPro: boolean,
+    name: string,
+  }
+}
+
 export function App({ offersCount, offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
@@ -68,7 +81,7 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
           path={AppRoutes.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <Favorites offers={offers}/>
+              <Favorites offers={offers} />
             </PrivateRoute>
           }
         />
