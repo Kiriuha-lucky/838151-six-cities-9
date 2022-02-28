@@ -80,7 +80,7 @@ export function Property({offers}: PropertyProps): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-                <RatingStars rating={offersCurrent.rating} component='property'>
+                <RatingStars rating={offersCurrent.rating} componentClassName='property'>
                   <span className="property__rating-value rating__value">{offersCurrent.rating}</span>
                 </RatingStars>
               </div>

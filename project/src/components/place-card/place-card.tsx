@@ -28,7 +28,7 @@ export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, 
           </button>
         </div>
         <div className="place-card__rating rating">
-          <RatingStars rating={rating} component='place-card' />
+          <RatingStars rating={rating} componentClassName='place-card' />
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>

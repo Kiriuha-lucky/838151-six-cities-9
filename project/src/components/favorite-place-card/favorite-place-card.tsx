@@ -27,7 +27,7 @@ export function FavoritePlaceCard({ id, isPremium, previewImage, price, type, ti
             <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
-        <RatingStars rating={rating} component='place-card' />
+        <RatingStars rating={rating} componentClassName='place-card' />
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
