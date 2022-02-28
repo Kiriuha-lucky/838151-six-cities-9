@@ -13,6 +13,7 @@ export function OffersList({ offers }: OffersListProps): JSX.Element {
     <ul className="cities__places-list places__list tabs__content" style={{listStyle: 'none'}}>
       {offers.map((offer) => {
         const { id } = offer;
+        //add activeCard variable in next line so that there are no errors during assembly
         return <li key={id} onMouseEnter={() => { setActiveCard(id); }}>{activeCard}<PlaceCard {...offer} /></li>;
       })}
     </ul>
