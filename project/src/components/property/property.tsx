@@ -64,7 +64,7 @@ export function Property({offers}: PropertyProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offersCurrent.isFavorite &&
+              {offersCurrent.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>}
