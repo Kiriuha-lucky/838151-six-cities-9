@@ -1,11 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { AppRoutes } from '../../types/routes.types';
 import { OfferImage } from '../offer-image';
 import { Offer, ReviewType } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { ReviewForm } from '../review-form/review-form';
 import { Review } from '../review/review';
-
 interface PropertyProps {
   offers: Offer[],
   reviews: ReviewType[]
@@ -15,11 +15,13 @@ const IMG_COUNT_ON_OFFER_PAGE = 6;
 
 export function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const offerId = useParams().id;
-  const offersCurrent: Offer = offers.filter((offer) => offer.id === Number(offerId))[0];
-  const offerImages = offersCurrent.images.slice(0, IMG_COUNT_ON_OFFER_PAGE);
+  const currentOffer = offers.find((offer) => offer.id === Number(offerId));
 
+  if (!currentOffer) {
+    return (<Navigate to={AppRoutes.NotFound} />);
+  }
   return (
-    <div className="page">
+    < div className="page" >
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -61,18 +63,18 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offerImages.map((image) => <OfferImage key={image} imageSrc={image} />)}
+              {currentOffer.images.slice(0, IMG_COUNT_ON_OFFER_PAGE).map((image) => <OfferImage key={image} imageSrc={image} />)}
             </div>
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {offersCurrent.isPremium &&
+              {currentOffer.isPremium &&
                 <div className="property__mark">
                   <span>Premium</span>
                 </div>}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {offersCurrent.title}
+                  {currentOffer.title}
                 </h1>
                 <button className="property__bookmark-button button" type="button">
                   <svg className="property__bookmark-icon" width={31} height={33}>
@@ -82,29 +84,29 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-                <RatingStars rating={offersCurrent.rating} componentClassName='property'>
-                  <span className="property__rating-value rating__value">{offersCurrent.rating}</span>
+                <RatingStars rating={currentOffer.rating} componentClassName='property'>
+                  <span className="property__rating-value rating__value">{currentOffer.rating}</span>
                 </RatingStars>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {offersCurrent.type}
+                  {currentOffer.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {`${offersCurrent.bedrooms} Bedrooms`}
+                  {`${currentOffer.bedrooms} Bedrooms`}
                 </li>
                 <li className="property__feature property__feature--adults">
-                  {`Max ${offersCurrent.maxAdults} adults`}
+                  {`Max ${currentOffer.maxAdults} adults`}
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">{`€${offersCurrent.price}`}</b>
+                <b className="property__price-value">{`€${currentOffer.price}`}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offersCurrent.goods.map((good) => <OfferInsideItem key={good} goodName={good} />)}
+                  {currentOffer.goods.map((good) => <OfferInsideItem key={good} goodName={good} />)}
                 </ul>
               </div>
               <div className="property__host">
@@ -113,19 +115,19 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src={`${offersCurrent.host.avatarUrl}`}
+                      src={`${currentOffer.host.avatarUrl}`}
                       width={74}
                       height={74}
                       alt="Host avatar"
                     />
                   </div>
-                  <span className="property__user-name">{offersCurrent.host.name}</span>
-                  {offersCurrent.host.isPro &&
+                  <span className="property__user-name">{currentOffer.host.name}</span>
+                  {currentOffer.host.isPro &&
                     <span className="property__user-status">Pro</span>}
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {offersCurrent.description}
+                    {currentOffer.description}
                   </p>
                 </div>
               </div>
@@ -287,6 +289,7 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </div >
   );
 }
+

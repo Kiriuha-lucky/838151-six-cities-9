@@ -9,7 +9,7 @@ interface FavoritesProps {
 export function Favorites({ offers }: FavoritesProps): JSX.Element {
 
   const cityNames = offers.reduce((uniqCityNames: string[], offer) => {
-    if (uniqCityNames.indexOf(offer.city.name) === -1) {
+    if (!uniqCityNames.includes(offer.city.name)) {
       uniqCityNames.push(offer.city.name);
     }
     return uniqCityNames;
