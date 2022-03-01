@@ -2,7 +2,7 @@ import { ReviewType } from '../app/app';
 import { RatingStars } from '../rating-stars/rating-stars';
 
 export function Review({ user, comment, date, rating }: ReviewType): JSX.Element {
-  const DATE = new Date(date);
+  const reviewDate = new Date(date);
   return (
     <>
       <div className="reviews__user user">
@@ -23,7 +23,7 @@ export function Review({ user, comment, date, rating }: ReviewType): JSX.Element
           {comment}
         </p>
         <time className="reviews__time" dateTime={date}>
-          {DATE.toLocaleString('EN', { month: 'long' })} {DATE.getFullYear()}
+          {reviewDate.toLocaleString('EN', { month: 'long' })} {reviewDate.getFullYear()}
         </time>
       </div>
     </>
