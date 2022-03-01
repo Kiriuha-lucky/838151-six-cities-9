@@ -10,20 +10,59 @@ import { PrivateRoute } from '../private-route/private-route';
 
 interface AppProps {
   offersCount: number,
-  offers: Offer[]
+  offers: Offer[],
+  reviews: ReviewType[]
 }
 
 export interface Offer {
+  bedrooms: number,
+  city: {
+    location: {
+      latitude: number,
+      longitude: number,
+      zoom: number,
+    },
+    name: string,
+  },
+  description: string,
+  goods: string[],
+  host: {
+    avatarUrl: string,
+    id: number,
+    isPro: boolean,
+    name: string,
+  },
   id: number,
-  mark: boolean,
-  previewImageSrc: string,
+  images: string[],
+  isFavorite: boolean,
+  isPremium: boolean,
+  location: {
+    latitude: number,
+    longitude: number,
+    zoom: number,
+  },
+  maxAdults: number,
+  previewImage: string,
   price: number,
   rating: number,
-  name: string,
+  title: string,
   type: string,
 }
 
-export function App({ offersCount, offers }: AppProps): JSX.Element {
+export interface ReviewType {
+  comment: string
+  date: string,
+  id: number,
+  rating: number,
+  user: {
+    avatarUrl: string,
+    id: number,
+    isPro: boolean,
+    name: string,
+  }
+}
+
+export function App({ offersCount, offers, reviews }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -37,13 +76,13 @@ export function App({ offersCount, offers }: AppProps): JSX.Element {
         />
         <Route
           path={AppRoutes.Property}
-          element={<Property />}
+          element={<Property offers={offers} reviews={reviews} />}
         />
         <Route
           path={AppRoutes.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <Favorites />
+              <Favorites offers={offers} />
             </PrivateRoute>
           }
         />
