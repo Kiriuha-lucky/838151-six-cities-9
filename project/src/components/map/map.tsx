@@ -3,7 +3,7 @@ import { Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMap } from './useMap';
 import { Offer } from '../app/app';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './const';
 
 interface MapProps {
   offers: Offer[]
