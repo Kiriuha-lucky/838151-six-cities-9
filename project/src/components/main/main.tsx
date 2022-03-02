@@ -1,4 +1,3 @@
-/* eslint-disable*/
 import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { OffersList } from '../offers-list/offers-list';
@@ -10,7 +9,10 @@ interface MainProps {
 }
 
 export function Main({ offersCount, offers }: MainProps): JSX.Element {
+  /* eslint-disable*/
+  //slint-disable before use setCurrentCity
   const [currentCity, setCurrentCity] = useState('Amsterdam');
+  /* eslint-enable*/
   return (
     <div className="page page--gray page--main">
       <header className="header">
