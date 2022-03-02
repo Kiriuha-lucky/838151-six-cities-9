@@ -1,6 +1,7 @@
 import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { OffersList } from '../offers-list/offers-list';
+import {Map} from '../map/map';
 interface MainProps {
   offersCount: number,
   offers: Offer[]
@@ -98,7 +99,8 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              {/* <section className="cities__map map"></section> */}
+              <Map offers={offers}/>
             </div>
           </div>
         </div>
