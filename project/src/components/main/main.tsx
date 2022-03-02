@@ -1,7 +1,7 @@
 import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { OffersList } from '../offers-list/offers-list';
-import {Map} from '../map/map';
+import { Map } from '../map/map';
 import { useState } from 'react';
 interface MainProps {
   offersCount: number,
@@ -13,6 +13,8 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
   //slint-disable before use setCurrentCity
   const [currentCity, setCurrentCity] = useState('Amsterdam');
   /* eslint-enable*/
+
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -101,10 +103,10 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers.filter((offer)=>offer.city.name === currentCity)} />
+              <OffersList offers={currentOffers} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers.filter((offer)=>offer.city.name === currentCity)}/>
+              <Map offers={currentOffers} />
             </div>
           </div>
         </div>
