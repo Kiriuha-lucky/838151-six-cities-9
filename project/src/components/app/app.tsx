@@ -9,7 +9,6 @@ import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
 
 interface AppProps {
-  offersCount: number,
   offers: Offer[],
   reviews: ReviewType[]
 }
@@ -62,13 +61,13 @@ export interface ReviewType {
   }
 }
 
-export function App({ offersCount, offers, reviews }: AppProps): JSX.Element {
+export function App({ offers, reviews }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Main}
-          element={<Main offersCount={offersCount} offers={offers} />}
+          element={<Main offers={offers} />}
         />
         <Route
           path={AppRoutes.Login}

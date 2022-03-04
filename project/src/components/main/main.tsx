@@ -4,11 +4,10 @@ import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
 import { useState } from 'react';
 interface MainProps {
-  offersCount: number,
   offers: Offer[]
 }
 
-export function Main({ offersCount, offers }: MainProps): JSX.Element {
+export function Main({ offers }: MainProps): JSX.Element {
   /* eslint-disable*/
   //slint-disable before use setCurrentCity
   const [currentCity, setCurrentCity] = useState('Amsterdam');
