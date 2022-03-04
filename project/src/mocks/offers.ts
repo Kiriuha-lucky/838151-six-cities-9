@@ -175,7 +175,7 @@ export const OFFERS: Offer[] = [
   },
   {
     city: {
-      name: 'Brusel',
+      name: 'Brussels',
       location: {
         latitude: 50.846557,
         longitude: 4.351697,
