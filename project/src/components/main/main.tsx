@@ -8,8 +8,8 @@ interface MainProps {
 }
 
 export function Main({ offers }: MainProps): JSX.Element {
-  /* eslint-disable*/
-  //slint-disable before use setCurrentCity
+  /* eslint-disable */
+  //delete eslint-disable after using variable currentCity
   const [currentCity, setCurrentCity] = useState('Amsterdam');
   /* eslint-enable*/
 
