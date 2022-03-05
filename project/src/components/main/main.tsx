@@ -1,12 +1,19 @@
 import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { OffersList } from '../offers-list/offers-list';
+import { Map } from '../map/map';
+import { useState } from 'react';
 interface MainProps {
-  offersCount: number,
   offers: Offer[]
 }
 
-export function Main({ offersCount, offers }: MainProps): JSX.Element {
+export function Main({ offers }: MainProps): JSX.Element {
+  /* eslint-disable */
+  //delete eslint-disable after using variable currentCity
+  const [currentCity, setCurrentCity] = useState('Amsterdam');
+  /* eslint-enable*/
+
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity);
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -79,7 +86,7 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -95,10 +102,10 @@ export function Main({ offersCount, offers }: MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList offers={currentOffers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={currentOffers} />
             </div>
           </div>
         </div>
