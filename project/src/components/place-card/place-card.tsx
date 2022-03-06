@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
 
 type PlaceCardProps = Offer & {
-  componentClassName?: string
+  className?: string
 }
 
-export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type, componentClassName }: PlaceCardProps): JSX.Element {
+export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type, className}: PlaceCardProps): JSX.Element {
   return (
-    <article className={` ${!componentClassName ? 'cities__place-card' : `${componentClassName}__card`} place-card`}>
+    <article className={` ${!className ? 'cities__place-card' : `${className}__card`} place-card`}>
       {isFavorite &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className={` ${!componentClassName ? 'cities__image-wrapper' : `${componentClassName}__image-wrapper`} place-card__image-wrapper`}>
+      <div className={` ${!className ? 'cities__image-wrapper' : `${className}__image-wrapper`} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
