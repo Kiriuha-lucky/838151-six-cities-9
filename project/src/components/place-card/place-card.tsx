@@ -14,8 +14,8 @@ export function PlaceCard({ id, isPremium, previewImage, price, rating, title, t
           <span>Premium</span>
         </div>}
       <div className={` ${!className ? 'cities__image-wrapper' : `${className}__image-wrapper`} place-card__image-wrapper`}>
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+        <a href="/">
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </a>
       </div>
       <div className="place-card__info">
@@ -32,7 +32,7 @@ export function PlaceCard({ id, isPremium, previewImage, price, rating, title, t
           </button>
         </div>
         <div className="place-card__rating rating">
-          <RatingStars rating={rating} componentClassName='place-card' />
+          <RatingStars rating={rating} className='place-card' />
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>

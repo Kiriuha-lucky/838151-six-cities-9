@@ -10,8 +10,8 @@ export function FavoritePlaceCard({ id, isPremium, previewImage, price, type, ti
           <span>Premium</span>
         </div>}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image" />
+        <a href="/">
+          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place" />
         </a>
       </div>
       <div className="favorites__card-info place-card__info">
@@ -27,7 +27,7 @@ export function FavoritePlaceCard({ id, isPremium, previewImage, price, type, ti
             <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
-        <RatingStars rating={rating} componentClassName='place-card' />
+        <RatingStars rating={rating} className='place-card' />
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
