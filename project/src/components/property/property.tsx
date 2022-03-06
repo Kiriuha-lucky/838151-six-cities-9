@@ -149,7 +149,7 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <OffersList offers={neighborsOffers} componentClassName='near-places' />
+            <OffersList offers={neighborsOffers} className='near-places' />
           </section>
         </div>
       </main>
