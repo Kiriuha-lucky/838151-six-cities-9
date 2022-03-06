@@ -4,6 +4,6 @@ interface OfferInsideItemProps {
 
 export function OfferInsideItem({goodName}: OfferInsideItemProps): JSX.Element {
   return (
-    <li className="property__inside-goodName">{goodName}</li>
+    <li className="property__inside-item">{goodName}</li>
   );
 }
