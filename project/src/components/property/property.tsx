@@ -5,9 +5,9 @@ import { Offer, ReviewType } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { ReviewForm } from '../review-form/review-form';
-import { Review } from '../review/review';
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
+import { ReviewsList } from '../reviews-list/reviews-list';
 interface PropertyProps {
   offers: Offer[],
   reviews: ReviewType[]
@@ -43,7 +43,7 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 <li className="header__nav-item user">
                   <a
                     className="header__nav-link header__nav-link--profile"
-                    href="#"
+                    href="/"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
@@ -52,7 +52,7 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="/">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -137,9 +137,7 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ul className="reviews__list">
-                  {reviews.map((review) => (<li key={review.id} className="reviews__item"><Review {...review} /></li>))}
-                </ul>
+                <ReviewsList reviews={reviews} />
                 <ReviewForm />
               </section>
             </div>
