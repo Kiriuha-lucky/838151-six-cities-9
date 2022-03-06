@@ -7,7 +7,7 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './const';
 
 interface MapProps {
   offers: Offer[],
-  componentClassName: string,
+  className: 'property' | 'cities',
   selectedOfferId?: number
 }
 
@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon({
 });
 /* eslint-enable*/
 
-export function Map({ offers, componentClassName, selectedOfferId }: MapProps): JSX.Element {
+export function Map({ offers, className, selectedOfferId }: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -47,7 +47,7 @@ export function Map({ offers, componentClassName, selectedOfferId }: MapProps): 
   }, [map, offers, selectedOfferId]);
 
   return (
-    <section className={`${componentClassName}__map map`}
+    <section className={`${className}__map map`}
       ref={mapRef}
     >
     </section>

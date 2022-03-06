@@ -105,7 +105,7 @@ export function Main({ offers }: MainProps): JSX.Element {
               <OffersList offers={currentOffers} />
             </section>
             <div className="cities__right-section">
-              <Map offers={currentOffers} componentClassName='cities' />
+              <Map offers={currentOffers} className='cities' />
             </div>
           </div>
         </div>
