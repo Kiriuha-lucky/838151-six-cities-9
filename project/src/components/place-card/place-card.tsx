@@ -6,10 +6,10 @@ type PlaceCardProps = Offer & {
   className?: string
 }
 
-export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type, className}: PlaceCardProps): JSX.Element {
+export function PlaceCard({ id, isPremium, previewImage, price, rating, title, type, className}: PlaceCardProps): JSX.Element {
   return (
     <article className={` ${!className ? 'cities__place-card' : `${className}__card`} place-card`}>
-      {isFavorite &&
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
