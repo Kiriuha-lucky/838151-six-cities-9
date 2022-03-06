@@ -14,10 +14,10 @@ interface PropertyProps {
 }
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
-
 export function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const offerId = useParams().id;
   const currentOffer = offers.find((offer) => offer.id === Number(offerId));
+  const neighborsOffers: Offer[] = offers.filter((offer) => currentOffer?.city.name === offer.city.name).slice(0, 3);
 
   if (!currentOffer) {
     return (<Navigate to={AppRoutes.NotFound} />);
@@ -142,14 +142,14 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={offers.filter((offer) => offer.city.name === currentOffer.city.name).slice(0, 3)} componentClassName='property' />
+          <Map offers={neighborsOffers} componentClassName='property' />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <OffersList offers={offers.filter((offer) => offer.city.name === currentOffer.city.name).slice(0, 3)} componentClassName='near-places' />
+            <OffersList offers={neighborsOffers} componentClassName='near-places' />
           </section>
         </div>
       </main>
