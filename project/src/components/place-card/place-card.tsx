@@ -7,13 +7,16 @@ type PlaceCardProps = Offer & {
 }
 
 export function PlaceCard({ id, isPremium, previewImage, price, rating, title, type, className}: PlaceCardProps): JSX.Element {
+  const articleClassName = !className ? 'cities__place-card' : `${className}__card`;
+  const imageWrapperClassName = !className ? 'cities__image-wrapper' : `${className}__image-wrapper`;
+
   return (
-    <article className={` ${!className ? 'cities__place-card' : `${className}__card`} place-card`}>
+    <article className={` ${articleClassName} place-card`}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className={` ${!className ? 'cities__image-wrapper' : `${className}__image-wrapper`} place-card__image-wrapper`}>
+      <div className={` ${imageWrapperClassName} place-card__image-wrapper`}>
         <a href="/">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </a>
