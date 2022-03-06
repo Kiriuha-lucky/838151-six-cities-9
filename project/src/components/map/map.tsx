@@ -31,7 +31,6 @@ export function Map({ offers, componentClassName, selectedOfferId }: MapProps): 
   const map = useMap(mapRef, city);
 
   useEffect(() => {
-    /* eslint-disable*/
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
