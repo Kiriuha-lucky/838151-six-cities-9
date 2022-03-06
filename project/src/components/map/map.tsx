@@ -28,18 +28,18 @@ export function Map({ offers, selectedOfferId }: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const icon = (offer: Offer) => selectedOfferId !== undefined && offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon;
 
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
+        const icon = selectedOfferId !== undefined && offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon;
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
 
         marker
-          .setIcon(icon(offer))
+          .setIcon(icon)
           .addTo(map);
       });
     }
