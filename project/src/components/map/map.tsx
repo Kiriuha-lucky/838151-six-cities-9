@@ -29,6 +29,7 @@ export function Map({ offers, componentClassName, selectedOfferId }: MapProps): 
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const icon = (offer: Offer) => selectedOfferId !== undefined && offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon;
 
   useEffect(() => {
     if (map) {
@@ -39,10 +40,7 @@ export function Map({ offers, componentClassName, selectedOfferId }: MapProps): 
         });
 
         marker
-          .setIcon(
-            selectedOfferId !== undefined && offer.id === selectedOfferId
-              ? currentCustomIcon
-              : defaultCustomIcon)
+          .setIcon(icon(offer))
           .addTo(map);
       });
     }
