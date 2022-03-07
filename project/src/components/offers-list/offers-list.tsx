@@ -4,10 +4,10 @@ import { PlaceCard } from '../place-card/place-card';
 
 interface OffersListProps {
   offers: Offer[],
-  className?: ''| 'near-places',
+  className?: 'near-places',
 }
 
-export function OffersList({ offers, className}: OffersListProps): JSX.Element {
+export function OffersList({ offers, className }: OffersListProps): JSX.Element {
   /* eslint-disable */
   // after using activeCard variable delete eslint-disabled
   const [activeCard, setActiveCard] = useState<number>();

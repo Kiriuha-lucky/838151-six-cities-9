@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
 
 type PlaceCardProps = Offer & {
-  className?: 'near-places' | ''
+  className?: 'near-places',
 }
 
 export function PlaceCard({ id, isPremium, isFavorite, previewImage, price, rating, title, type, className}: PlaceCardProps): JSX.Element {
