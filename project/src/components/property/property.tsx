@@ -18,7 +18,6 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
   const offerId = useParams().id;
   const currentOffer = offers.find((offer) => offer.id === Number(offerId));
   const neighborsOffers: Offer[] = offers.filter((offer) => currentOffer?.city.name === offer.city.name).slice(0, 3);
-  const bookmarkClassName = currentOffer?.isFavorite ? 'property__bookmark-button--active' : '';
 
   if (!currentOffer) {
     return (<Navigate to={AppRoutes.NotFound} />);
@@ -79,12 +78,21 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                <button className={`property__bookmark-button ${bookmarkClassName} button`} type="button">
-                  <svg className="property__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                {currentOffer.isFavorite ? (
+                  <button className='property__bookmark-button property__bookmark-button--active button' type="button">
+                    <svg className="property__bookmark-icon" width={31} height={33}>
+                      <use xlinkHref="#icon-bookmark" />
+                    </svg>
+                    <span className="visually-hidden">In bookmarks</span>
+                  </button>
+                ) : (
+                  <button className='property__bookmark-button button' type="button">
+                    <svg className="property__bookmark-icon" width={31} height={33}>
+                      <use xlinkHref="#icon-bookmark" />
+                    </svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button>
+                )}
               </div>
               <div className="property__rating rating">
                 <RatingStars rating={currentOffer.rating} className='property'>
