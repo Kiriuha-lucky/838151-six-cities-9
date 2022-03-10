@@ -15,8 +15,8 @@ export function useMap(
   city: City,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
-
   useEffect(() => {
+
     if (mapRef.current !== null && map === null) {
       const instance = new Map(mapRef.current, {
         center: {
@@ -36,7 +36,7 @@ export function useMap(
       instance.addLayer(layer);
       setMap(instance);
     }
-  }, [mapRef, map, city]);
+  }, [map, mapRef, city.location.latitude, city.location.longitude, city.location.zoom]);
 
   return map;
 }
