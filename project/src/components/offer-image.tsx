@@ -8,7 +8,7 @@ export function OfferImage({imageSrc}:OfferImagesProps): JSX.Element {
       <img
         className="property__image"
         src={imageSrc}
-        alt="Photo studio"
+        alt="Studio"
       />
     </div>
   );

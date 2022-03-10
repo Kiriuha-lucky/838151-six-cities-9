@@ -18,7 +18,7 @@ export function Review({ user, comment, date, rating }: ReviewType): JSX.Element
         <span className="reviews__user-name">{user.name}</span>
       </div>
       <div className="reviews__info">
-        <RatingStars rating={rating} componentClassName='reviews' />
+        <RatingStars rating={rating} className='reviews' />
         <p className="reviews__text">
           {comment}
         </p>

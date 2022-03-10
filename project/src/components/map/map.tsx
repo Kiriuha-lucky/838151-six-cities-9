@@ -6,7 +6,8 @@ import { Offer } from '../app/app';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './const';
 
 interface MapProps {
-  offers: Offer[]
+  offers: Offer[],
+  selectedOfferId?: number
 }
 
 const defaultCustomIcon = new Icon({
@@ -23,7 +24,7 @@ const currentCustomIcon = new Icon({
 });
 /* eslint-enable*/
 
-export function Map({ offers }: MapProps): JSX.Element {
+export function Map({ offers, selectedOfferId }: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -31,22 +32,24 @@ export function Map({ offers }: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
+        const icon = selectedOfferId !== undefined && offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon;
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
 
         marker
-          .setIcon(defaultCustomIcon)
+          .setIcon(icon)
           .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOfferId]);
 
   return (
-    <section className="cities__map map"
+    <div
       ref={mapRef}
+      style={{ height: '100%' }}
     >
-    </section>
+    </div >
   );
 }

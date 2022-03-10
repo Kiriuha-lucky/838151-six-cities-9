@@ -2,16 +2,23 @@ import { Offer } from '../app/app';
 import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
 
-export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, type }: Offer): JSX.Element {
+type PlaceCardProps = Offer & {
+  className?: 'near-places',
+}
+
+export function PlaceCard({ id, isPremium, isFavorite, previewImage, price, rating, title, type, className }: PlaceCardProps): JSX.Element {
+  const articleClassName = !className ? 'cities__place-card' : `${className}__card`;
+  const imageWrapperClassName = !className ? 'cities__image-wrapper' : `${className}__image-wrapper`;
+
   return (
-    <article className="cities__place-card place-card">
-      {isFavorite &&
+    <article className={` ${articleClassName} place-card`}>
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+      <div className={` ${imageWrapperClassName} place-card__image-wrapper`}>
+        <a href="/">
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </a>
       </div>
       <div className="place-card__info">
@@ -20,15 +27,24 @@ export function PlaceCard({ id, isFavorite, previewImage, price, rating, title, 
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          {isFavorite ? (
+            <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">In bookmarks</span>
+            </button>
+          ) : (
+            <button className="place-card__bookmark-button button" type="button">
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
-          <RatingStars rating={rating} componentClassName='place-card' />
+          <RatingStars rating={rating} className='place-card' />
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
