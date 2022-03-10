@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useAppDispatch } from '../../hooks';
+import { selectedOfferId } from '../../store/action';
 import { Offer } from '../app/app';
 import { PlaceCard } from '../place-card/place-card';
 
@@ -8,20 +9,21 @@ interface OffersListProps {
 }
 
 export function OffersList({ offers, className }: OffersListProps): JSX.Element {
-  /* eslint-disable */
-  // after using activeCard variable delete eslint-disabled
-  const [activeCard, setActiveCard] = useState<number>();
-  /* eslint-enable */
-
+  const dispatch = useAppDispatch();
   const listClassName = !className ? 'cities__places-list' : `${className}__list`;
-
 
   return (
     <ul className={`${listClassName} places__list tabs__content`} style={{ listStyle: 'none' }}>
       {offers.map((offer) => {
         const { id } = offer;
-        return <li key={id} onMouseEnter={() => { setActiveCard(id); }}><PlaceCard {...offer} className={className} /></li>;
+        return (
+          <li key={id}
+            onMouseEnter={() => { dispatch(selectedOfferId(id)); }}
+            onMouseLeave={() => { dispatch(selectedOfferId('')); }}
+          >
+            <PlaceCard {...offer} className={className} />
+          </li>);
       })}
-    </ul>
+    </ul >
   );
 }
