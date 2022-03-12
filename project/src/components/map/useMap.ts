@@ -9,14 +9,12 @@ export type City = {
   },
   name: string,
 }
-
 export function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
   city: City,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   useEffect(() => {
-
     if (mapRef.current !== null && map === null) {
       const instance = new Map(mapRef.current, {
         center: {
@@ -36,7 +34,6 @@ export function useMap(
       instance.addLayer(layer);
       setMap(instance);
     }
-  }, [map, mapRef, city.location.latitude, city.location.longitude, city.location.zoom]);
-
+  }, [map, mapRef, city]);
   return map;
 }

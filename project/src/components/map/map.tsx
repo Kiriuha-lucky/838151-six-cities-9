@@ -21,12 +21,13 @@ const currentCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-
-export function Map({ offers }: MapProps): JSX.Element {
+/* eslint-disable */
+export function Map({ offers}: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const selectedOfferId = Number(useAppSelector((state) => state.selectedOfferId));
+
   useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
