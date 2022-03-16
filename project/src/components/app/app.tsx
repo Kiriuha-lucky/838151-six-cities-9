@@ -7,11 +7,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.types';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
-
-interface AppProps {
-  offers: Offer[],
-  reviews: ReviewType[]
-}
+import { useAppSelector } from '../../hooks';
 
 export interface Offer {
   bedrooms: number,
@@ -61,7 +57,10 @@ export interface ReviewType {
   }
 }
 
-export function App({ offers, reviews }: AppProps): JSX.Element {
+export function App(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+  const reviews = useAppSelector((state) => state.reviews);
+
   return (
     <BrowserRouter>
       <Routes>

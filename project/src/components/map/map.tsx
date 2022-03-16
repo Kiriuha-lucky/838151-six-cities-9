@@ -4,10 +4,10 @@ import 'leaflet/dist/leaflet.css';
 import { useMap } from './useMap';
 import { Offer } from '../app/app';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from './const';
+import { useAppSelector } from '../../hooks';
 
 interface MapProps {
   offers: Offer[],
-  selectedOfferId?: number
 }
 
 const defaultCustomIcon = new Icon({
@@ -15,19 +15,18 @@ const defaultCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-/* eslint-disable*/
-//eslint-disable before use currentCustomIcon
+
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-/* eslint-enable*/
-
-export function Map({ offers, selectedOfferId }: MapProps): JSX.Element {
+/* eslint-disable */
+export function Map({ offers}: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const selectedOfferId = Number(useAppSelector((state) => state.selectedOfferId));
 
   useEffect(() => {
     if (map) {
