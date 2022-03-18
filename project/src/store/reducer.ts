@@ -2,15 +2,16 @@ import { createReducer } from '@reduxjs/toolkit';
 import { OFFERS } from '../mocks/offers';
 import { REVIEWS } from '../mocks/reviews';
 import { CITIES } from '../types/cities';
-import { getCurrentCity, selectedOfferId } from './action';
-import {Offer, ReviewType} from '../components/app/app';
+import { getCurrentCity, offersSort, selectedOfferId } from './action';
+import { Offer, ReviewType } from '../components/app/app';
 
 interface initialStateType {
   currentCity: string,
   cities: string[],
   offers: Offer[],
   reviews: ReviewType[],
-  selectedOfferId: number
+  selectedOfferId: number,
+  offersSort: string,
 }
 
 const initialState: initialStateType = {
@@ -19,6 +20,7 @@ const initialState: initialStateType = {
   offers: OFFERS,
   reviews: REVIEWS,
   selectedOfferId: 0,
+  offersSort: 'Popular',
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -29,5 +31,9 @@ export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(selectedOfferId, (state, action) => {
       state.selectedOfferId = action.payload;
+    });
+  builder
+    .addCase(offersSort, (state, action) => {
+      state.offersSort = action.payload;
     });
 });
