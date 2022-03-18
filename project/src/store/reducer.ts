@@ -1,6 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { OFFERS } from '../mocks/offers';
-import { REVIEWS } from '../mocks/reviews';
 import { CITIES } from '../types/cities';
 import { getCurrentCity, offersSort, selectedOfferId } from './action';
 import { Offer, ReviewType } from '../components/app/app';
@@ -17,8 +15,8 @@ interface initialStateType {
 const initialState: initialStateType = {
   currentCity: 'Paris',
   cities: CITIES,
-  offers: OFFERS,
-  reviews: REVIEWS,
+  offers: [],
+  reviews: [],
   selectedOfferId: 0,
   offersSort: 'Popular',
 };
