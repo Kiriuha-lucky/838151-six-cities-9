@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES } from '../types/cities';
-import { getCurrentCity, offersSort, selectedOfferId } from './action';
+import { dataLoaded, getCurrentCity, loadOffers, offersSort, selectedOfferId } from './action';
 import { Offer, ReviewType } from '../components/app/app';
 
 interface initialStateType {
@@ -10,6 +10,7 @@ interface initialStateType {
   reviews: ReviewType[],
   selectedOfferId: number,
   offersSort: string,
+  isDataLoaded: boolean,
 }
 
 const initialState: initialStateType = {
@@ -19,6 +20,7 @@ const initialState: initialStateType = {
   reviews: [],
   selectedOfferId: 0,
   offersSort: 'Popular',
+  isDataLoaded: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -33,5 +35,13 @@ export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(offersSort, (state, action) => {
       state.offersSort = action.payload;
+    });
+  builder
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+    });
+  builder
+    .addCase(dataLoaded, (state, action) => {
+      state.isDataLoaded = action.payload;
     });
 });

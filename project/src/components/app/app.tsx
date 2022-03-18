@@ -8,6 +8,7 @@ import { AppRoutes } from '../../types/routes.types';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
+import { Spinner } from '../spinner/spinner';
 
 export interface Offer {
   bedrooms: number,
@@ -60,6 +61,14 @@ export interface ReviewType {
 export function App(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const reviews = useAppSelector((state) => state.reviews);
+
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <BrowserRouter>
