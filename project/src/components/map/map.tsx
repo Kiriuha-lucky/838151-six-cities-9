@@ -21,7 +21,7 @@ const currentCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-/* eslint-disable */
+
 export function Map({ offers}: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);

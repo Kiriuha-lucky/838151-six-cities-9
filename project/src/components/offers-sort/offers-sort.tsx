@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { offersSort } from '../../store/action';
 import { SORT_TYPES } from '../../types/sort-type';
-/* eslint-disable*/
+
 export function OffersSort(): JSX.Element {
   const [open, setOpen] = useState(false);
 
@@ -10,11 +10,9 @@ export function OffersSort(): JSX.Element {
   const dispatch = useAppDispatch();
   const offersSortActive = useAppSelector((state) => state.offersSort);
 
-
-
   const arrowStyle = {
     transform: 'rotate(180deg)',
-  }
+  };
 
   return (
     <form className="places__sorting" action="#" method="get" onClick={() => setOpen(!open)}>
