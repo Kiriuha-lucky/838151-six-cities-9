@@ -1,10 +1,11 @@
 .places__sorting-arrow {
-  transform: rotate(0);
+  top: 50%;
+  transform: translateY(-50%) rotate(0) ;
   transition: all .25s;
 }
 
 .places__sorting-arrow--open {
-  transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .places__sorting {
