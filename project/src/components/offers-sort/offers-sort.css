@@ -1,0 +1,8 @@
+.places__sorting-arrow {
+  transform: rotate(0);
+  transition: all .25s;
+}
+
+.places__sorting-arrow--open {
+  transform: rotate(180deg);
+}

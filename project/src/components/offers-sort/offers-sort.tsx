@@ -2,24 +2,22 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { offersSort } from '../../store/action';
 import { SORT_TYPES } from '../../types/sort-type';
+import './offers-sort.css';
 
 export function OffersSort(): JSX.Element {
   const [open, setOpen] = useState(false);
 
   const sortClassName = open ? 'places__options--opened' : '';
+  const arrowClassName = open ? 'places__sorting-arrow places__sorting-arrow--open' : 'places__sorting-arrow ';
   const dispatch = useAppDispatch();
   const offersSortActive = useAppSelector((state) => state.offersSort);
-
-  const arrowStyle = {
-    transform: 'rotate(180deg)',
-  };
 
   return (
     <form className="places__sorting" action="#" method="get" onClick={() => setOpen(!open)}>
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0}>
         {offersSortActive}
-        <svg className="places__sorting-arrow" style={open ? arrowStyle : {}} width="7" height="4">
+        <svg className={arrowClassName} width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
