@@ -5,30 +5,18 @@ import { Map } from '../map/map';
 import { useAppSelector } from '../../hooks';
 import { CitiesList } from '../cities-list/cities-list';
 import { OffersSort } from '../offers-sort/offers-sort';
+import { getCurrentOffers } from './main.utils';
 
 interface MainProps {
   offers: Offer[],
 }
 
-function getOffersSortingFunction(sortType: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first') {
-  switch (sortType) {
-    case 'Popular':
-      return;
-    case 'Price: low to high':
-      return function (a: Offer, b: Offer) { return a.price - b.price; };
-    case 'Price: high to low':
-      return function (a: Offer, b: Offer) { return b.price - a.price; };
-    case 'Top rated first':
-      return function (a: Offer, b: Offer) { return b.rating - a.rating; };
-  }
-}
-
 export function Main({ offers }: MainProps): JSX.Element {
   const currentCity = useAppSelector((state) => state.currentCity);
   const cities: string[] = useAppSelector((state) => state.cities);
-  const offersSort = useAppSelector((state) => state.offersSort);
+  const offersSortType = useAppSelector((state) => state.offersSort);
 
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSort));
+  const currentOffers = getCurrentOffers(offers, currentCity, offersSortType);
   return (
     <div className="page page--gray page--main">
       <header className="header">
