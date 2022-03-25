@@ -13,7 +13,7 @@ interface MainProps {
 
 export function Main({ offers }: MainProps): JSX.Element {
   const currentCity = useAppSelector((state) => state.currentCity);
-  const cities: string[] = useAppSelector((state) => state.cities);
+  const cities = useAppSelector((state) => state.cities);
   const offersSortType = useAppSelector((state) => state.offersSort);
 
   const currentOffers = getCurrentOffers(offers, currentCity, offersSortType);
