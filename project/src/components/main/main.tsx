@@ -14,9 +14,9 @@ interface MainProps {
 export function Main({ offers }: MainProps): JSX.Element {
   const currentCity = useAppSelector((state) => state.currentCity);
   const cities = useAppSelector((state) => state.cities);
-  const offersSortType = useAppSelector((state) => state.offersSort);
+  const offersSortingType = useAppSelector((state) => state.offersSortingType);
 
-  const currentOffers = getCurrentOffers(offers, currentCity, offersSortType);
+  const currentOffers = getCurrentOffers(offers, currentCity, offersSortingType);
   return (
     <div className="page page--gray page--main">
       <header className="header">

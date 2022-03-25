@@ -9,7 +9,7 @@ interface initialStateType {
   offers: Offer[],
   reviews: ReviewType[],
   selectedOfferId: number,
-  offersSort: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first',
+  offersSortingType: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first',
   isDataLoaded: boolean,
 }
 
@@ -19,7 +19,7 @@ const initialState: initialStateType = {
   offers: [],
   reviews: [],
   selectedOfferId: 0,
-  offersSort: 'Popular',
+  offersSortingType: 'Popular',
   isDataLoaded: false,
 };
 
@@ -34,7 +34,7 @@ export const reducer = createReducer(initialState, (builder) => {
     });
   builder
     .addCase(offersSort, (state, action) => {
-      state.offersSort = action.payload;
+      state.offersSortingType = action.payload;
     });
   builder
     .addCase(loadOffers, (state, action) => {
