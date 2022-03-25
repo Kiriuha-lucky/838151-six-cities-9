@@ -16,8 +16,12 @@ export function OffersSort(): JSX.Element {
     dispatch(offersSort(sortType));
   }
 
+  function handleOpenClick() {
+    setOpen(!open);
+  }
+
   return (
-    <form className="places__sorting" action="#" method="get" onClick={() => setOpen(!open)}>
+    <form className="places__sorting" action="#" method="get" onClick={handleOpenClick}>
       <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0}>
         {offersSortActive}
