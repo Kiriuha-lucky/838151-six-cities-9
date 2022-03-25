@@ -6,3 +6,7 @@
 .places__sorting-arrow--open {
   transform: rotate(180deg);
 }
+
+.places__sorting {
+  cursor: pointer;
+}
