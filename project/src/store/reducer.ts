@@ -3,7 +3,7 @@ import { CITIES } from '../types/cities';
 import { dataLoaded, getCurrentCity, loadOffers, offersSort, selectedOfferId } from './action';
 import { Offer, ReviewType } from '../components/app/app';
 
-interface initialStateType {
+export interface initialStateType {
   currentCity: string,
   cities: string[],
   offers: Offer[],
