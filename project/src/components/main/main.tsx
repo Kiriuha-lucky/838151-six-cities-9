@@ -10,30 +10,25 @@ interface MainProps {
   offers: Offer[],
 }
 
+function getOffersSortingFunction(sortType: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first') {
+  switch (sortType) {
+    case 'Popular':
+      return;
+    case 'Price: low to high':
+      return function (a: Offer, b: Offer) { return a.price - b.price; };
+    case 'Price: high to low':
+      return function (a: Offer, b: Offer) { return b.price - a.price; };
+    case 'Top rated first':
+      return function (a: Offer, b: Offer) { return b.rating - a.rating; };
+  }
+}
+
 export function Main({ offers }: MainProps): JSX.Element {
   const currentCity = useAppSelector((state) => state.currentCity);
   const cities: string[] = useAppSelector((state) => state.cities);
-  const offersSort: string = useAppSelector((state) => state.offersSort);
+  const offersSort = useAppSelector((state) => state.offersSort);
 
-  function sortOffers() {
-    switch (offersSort) {
-      case 'Popular':
-        return;
-        break;
-      case 'Price: low to high':
-        return function (a: Offer, b: Offer) { return a.price - b.price; };
-        break;
-      case 'Price: high to low':
-        return function (a: Offer, b: Offer) { return b.price - a.price; };
-        break;
-      case 'Top rated first':
-        return function (a: Offer, b: Offer) { return b.rating - a.rating; };
-        break;
-    }
-
-  }
-
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCity).sort(sortOffers());
+  const currentOffers = offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSort));
   return (
     <div className="page page--gray page--main">
       <header className="header">

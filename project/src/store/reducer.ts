@@ -9,7 +9,7 @@ interface initialStateType {
   offers: Offer[],
   reviews: ReviewType[],
   selectedOfferId: number,
-  offersSort: string,
+  offersSort: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first',
   isDataLoaded: boolean,
 }
 
