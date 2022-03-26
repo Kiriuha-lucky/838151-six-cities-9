@@ -5,70 +5,11 @@ import { Favorites } from '../favorites/favorites';
 import { NotFound } from '../not-found/not-found';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.types';
-import { AuthorizationStatus } from '../../types/authorization.types';
 import { PrivateRoute } from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
-import { Spinner } from '../spinner/spinner';
-
-export interface Offer {
-  bedrooms: number,
-  city: {
-    location: {
-      latitude: number,
-      longitude: number,
-      zoom: number,
-    },
-    name: string,
-  },
-  description: string,
-  goods: string[],
-  host: {
-    avatarUrl: string,
-    id: number,
-    isPro: boolean,
-    name: string,
-  },
-  id: number,
-  images: string[],
-  isFavorite: boolean,
-  isPremium: boolean,
-  location: {
-    latitude: number,
-    longitude: number,
-    zoom: number,
-  },
-  maxAdults: number,
-  previewImage: string,
-  price: number,
-  rating: number,
-  title: string,
-  type: string,
-}
-
-export interface ReviewType {
-  comment: string
-  date: string,
-  id: number,
-  rating: number,
-  user: {
-    avatarUrl: string,
-    id: number,
-    isPro: boolean,
-    name: string,
-  }
-}
 
 export function App(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const reviews = useAppSelector((state) => state.reviews);
-
-  const {isDataLoaded} = useAppSelector((state) => state);
-
-  if (!isDataLoaded) {
-    return (
-      <Spinner />
-    );
-  }
+  const {offers, authorizationStatus } = useAppSelector((state) => state);
 
   return (
     <BrowserRouter>
@@ -83,12 +24,12 @@ export function App(): JSX.Element {
         />
         <Route
           path={AppRoutes.Property}
-          element={<Property offers={offers} reviews={reviews} />}
+          element={<Property />}
         />
         <Route
           path={AppRoutes.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites offers={offers} />
             </PrivateRoute>
           }
