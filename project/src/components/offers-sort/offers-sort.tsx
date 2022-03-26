@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { offersSort } from '../../store/action';
+import { initialStateType } from '../../store/reducer';
 import { SORT_TYPES } from '../../types/sort-type';
 import './offers-sort.css';
 
@@ -12,7 +13,7 @@ export function OffersSort(): JSX.Element {
   const dispatch = useAppDispatch();
   const offersSortActive = useAppSelector((state) => state.offersSortingType);
 
-  function handleSortClick(sortType: string) {
+  function handleSortClick(sortType: initialStateType['offersSortingType']) {
     dispatch(offersSort(sortType));
   }
 
