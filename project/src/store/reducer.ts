@@ -3,13 +3,14 @@ import { CITIES } from '../types/cities';
 import { dataLoaded, getCurrentCity, loadOffers, offersSort, selectedOfferId } from './action';
 import { Offer, ReviewType } from '../components/app/app';
 
+export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 export interface initialStateType {
   currentCity: string,
   cities: string[],
   offers: Offer[],
   reviews: ReviewType[],
   selectedOfferId: number,
-  offersSortingType: 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first',
+  offersSortingType: OffersSortingType,
   isDataLoaded: boolean,
 }
 

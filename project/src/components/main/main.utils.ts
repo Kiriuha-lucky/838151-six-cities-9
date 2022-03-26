@@ -1,7 +1,7 @@
-import { initialStateType } from '../../store/reducer';
+import { OffersSortingType } from '../../store/reducer';
 import { Offer } from '../app/app';
 
-function getOffersSortingFunction(offersSortingType: initialStateType['offersSortingType']) {
+function getOffersSortingFunction(offersSortingType: OffersSortingType) {
   switch (offersSortingType) {
     case 'Popular':
       return;
@@ -14,6 +14,6 @@ function getOffersSortingFunction(offersSortingType: initialStateType['offersSor
   }
 }
 
-export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: initialStateType['offersSortingType']) {
+export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
   return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }
