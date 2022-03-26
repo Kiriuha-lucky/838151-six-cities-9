@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
+import { addComment } from '../../store/api-actions';
+import { Rating } from '../../types/rating.types';
+
+export interface Review {
+  rating: number,
+  comment: string,
+}
 
 export function ReviewForm(): JSX.Element {
-  /* eslint-disable */
-  // eslint-disabled before using rating variable
   const [rating, setRating] = useState(0);
-  /* eslint-enable */
   const [reviewText, setReviewText] = useState('');
+  const offerId = useParams().id;
+
+
+  const dispatch = useAppDispatch();
 
   const handleRatingChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const { value } = evt.target;
@@ -16,9 +26,20 @@ export function ReviewForm(): JSX.Element {
     const { value } = evt.target;
     setReviewText(value);
   };
+  const onSubmit = ({ ratingCount, comment, id }: Rating) => {
+    dispatch(addComment({ ratingCount, comment, id }));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (rating && reviewText !== null) {
+      onSubmit({ ratingCount: rating, comment: reviewText, id: Number(offerId) });
+    }
+  };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -127,7 +148,7 @@ export function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+
         >
           Submit
         </button>
