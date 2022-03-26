@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { Offer } from '../../types/offer.types';
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
@@ -19,7 +18,6 @@ interface MainProps {
 export function Main({ offers }: MainProps): JSX.Element {
   const dispatch = useAppDispatch();
   const { authorizationStatus, isDataLoaded } = useAppSelector((st) => st);
-
   useEffect(() => {
     dispatch(fetchOffersAction());
   }, []);
