@@ -123,20 +123,22 @@ export function Property(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {reviews.length !== 0 ? (
-                <section className="property__reviews reviews">
-                  <h2 className="reviews__title">
-                    Reviews · <span className="reviews__amount">{reviews.length}</span>
-                  </h2>
-                  <ReviewsList reviews={reviews} />
-                  {authorizationStatus === AuthorizationStatus.Auth ? (
-                    <ReviewForm />
-                  ) : (<div></div>)}
-                </section>
-              ) : (
-                <div></div>
-              )}
 
+              <section className="property__reviews reviews">
+                {reviews.length !== 0 ? (
+                  <>
+                    <h2 className="reviews__title">
+                      Reviews · <span className="reviews__amount">{reviews.length}</span>
+                    </h2>
+                    <ReviewsList reviews={reviews} />
+                  </>
+                ) : (
+                  <div></div>
+                )}
+                {authorizationStatus === AuthorizationStatus.Auth ? (
+                  <ReviewForm />
+                ) : (<div></div>)}
+              </section>
             </div>
           </div>
           <section className="property__map map">
