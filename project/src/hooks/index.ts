@@ -5,15 +5,17 @@ import type { State, AppDispatch } from '../types/state';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<State> = useSelector;
-
-export function useOnClickOutside(ref: React.RefObject<HTMLElement>, handler: () => void) {
+export function useOnClickOutside(
+  ref: React.RefObject<HTMLElement>,
+  handler: (event: MouseEvent | TouchEvent) => void,
+) {
   useEffect(
     () => {
-      const listener = (event: { target: any ; }) => {
-        if (!ref.current || ref.current.contains(event.target)) {
+      const listener = (event: MouseEvent | TouchEvent) => {
+        if (!ref.current || ref.current.contains(event.target as Node)) {
           return;
         }
-        handler();
+        handler(event);
       };
       document.addEventListener('mousedown', listener);
       document.addEventListener('touchstart', listener);
