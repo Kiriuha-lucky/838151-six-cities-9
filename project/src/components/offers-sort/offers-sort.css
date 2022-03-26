@@ -1,0 +1,17 @@
+.places__sorting-arrow {
+  top: 50%;
+  transform: translateY(-50%) rotate(0) ;
+  transition: all .25s;
+}
+
+.places__sorting-arrow--open {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.places__sorting-caption {
+  cursor: pointer;
+}
+
+.places__sorting {
+  user-select: none;
+}

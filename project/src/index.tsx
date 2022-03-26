@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './components/app/app';
 import { store } from './store';
+import {fetchOffersAction} from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
 
 ReactDOM.render(
   <React.StrictMode>

@@ -19,7 +19,7 @@ export function OffersList({ offers, className }: OffersListProps): JSX.Element 
         return (
           <li key={id}
             onMouseEnter={() => { dispatch(selectedOfferId(id)); }}
-            onMouseLeave={() => { dispatch(selectedOfferId('')); }}
+            onMouseLeave={() => { dispatch(selectedOfferId(0)); }}
           >
             <PlaceCard {...offer} className={className} />
           </li>);
