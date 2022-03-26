@@ -4,7 +4,7 @@ import { AuthorizationStatus } from '../../types/authorization.types';
 
 
 type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
+  authorizationStatus: string;
   children: JSX.Element;
 }
 

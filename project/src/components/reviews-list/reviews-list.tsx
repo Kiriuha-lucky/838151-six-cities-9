@@ -1,4 +1,4 @@
-import {ReviewType} from '../app/app';
+import { ReviewType } from '../../types/review.types';
 import { Review } from '../review/review';
 
 interface ReviewsListProps {

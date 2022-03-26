@@ -1,5 +1,5 @@
 import { OffersSortingType } from '../../store/reducer';
-import { Offer } from '../app/app';
+import { Offer } from '../../types/offer.types';
 
 function getOffersSortingFunction(offersSortingType: OffersSortingType) {
   switch (offersSortingType) {

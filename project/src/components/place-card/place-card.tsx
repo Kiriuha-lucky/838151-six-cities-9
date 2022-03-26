@@ -1,4 +1,4 @@
-import { Offer } from '../app/app';
+import { Offer } from '../../types/offer.types';
 import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
 

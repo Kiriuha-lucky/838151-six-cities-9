@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../app/app';
+import { Offer } from '../../types/offer.types';
 import { RatingStars } from '../rating-stars/rating-stars';
 
 export function FavoritePlaceCard({ id, isPremium, isFavorite, previewImage, price, type, title, rating }: Offer): JSX.Element {

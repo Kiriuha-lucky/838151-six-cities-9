@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import {Offer} from '../app/app';
+import {Offer} from '../../types/offer.types';
 import { FavoritePlaceCard } from '../favorite-place-card/favorite-place-card';
 
 interface FavoriteLocationItemProps {
