@@ -18,7 +18,7 @@ export const errorHandle = (error: unknown): void => {
         toast.error(response.data.error);
         break;
       case HTTP_CODE.NOT_FOUND:
-        toast.error(response.data.error);
+        toast.error('Not found');
         break;
     }
   }

@@ -40,17 +40,18 @@ export const fetchOfferAction = createAsyncThunk(
     function getNeighborsOffers() {
       return api.get(`${APIRoute.NeighborsOffers}/${id}/nearby`);
     }
-    try {
-      Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
-        .then(axios.spread((d1, d2, d3) => {
-          store.dispatch(loadOffer(d1.data));
-          store.dispatch(loadReviews(d2.data));
-          store.dispatch(loadNeighborsOffers(d3.data));
-          store.dispatch(dataLoaded(true));
-        }));
-    } catch (error) {
-      errorHandle(error);
-    }
+
+    Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
+      .then(axios.spread((d1, d2, d3) => {
+        store.dispatch(loadOffer(d1.data));
+        store.dispatch(loadReviews(d2.data));
+        store.dispatch(loadNeighborsOffers(d3.data));
+        store.dispatch(dataLoaded(true));
+      }))
+      .catch((Error) => {
+        errorHandle(Error);
+        store.dispatch(dataLoaded(true));
+      });
   },
 );
 
