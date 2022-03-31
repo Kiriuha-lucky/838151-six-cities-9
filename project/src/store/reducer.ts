@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES } from '../types/cities';
-import { dataLoaded, getCurrentCity, loadNeighborsOffers, loadOffer, loadOffers, loadReviews, offersSort, requireAuthorization, selectedOfferId } from './action';
-import { Offer} from '../types/offer.types';
+import { getCurrentCity, loadNeighborsOffers, loadOffer, loadOffers, loadReviews, offersSort, requireAuthorization, selectedOfferId } from './action';
+import { Offer } from '../types/offer.types';
 import { ReviewType } from '../types/review.types';
 import { AuthorizationStatus } from '../types/authorization.types';
 
@@ -13,7 +13,6 @@ export interface initialStateType {
   reviews: ReviewType[],
   selectedOfferId: number,
   offersSortingType: OffersSortingType,
-  isDataLoaded: boolean,
   authorizationStatus: string,
   offer: {
     currentOffer: Offer,
@@ -29,7 +28,6 @@ const initialState: initialStateType = {
   reviews: [],
   selectedOfferId: 0,
   offersSortingType: 'Popular',
-  isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   offer: {
     currentOffer: {} as Offer,
@@ -66,10 +64,6 @@ export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(loadNeighborsOffers, (state, action) => {
       state.offer.neighborsOffers = action.payload;
-    });
-  builder
-    .addCase(dataLoaded, (state, action) => {
-      state.isDataLoaded = action.payload;
     });
   builder
     .addCase(requireAuthorization, (state, action) => {

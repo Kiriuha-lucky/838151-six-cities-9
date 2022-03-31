@@ -11,7 +11,7 @@ import { AuthData } from '../types/auth-data.types';
 import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
-import { dataLoaded, loadNeighborsOffers, loadOffer, loadOffers, loadReviews, requireAuthorization } from './action';
+import { loadNeighborsOffers, loadOffer, loadOffers, loadReviews, requireAuthorization } from './action';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
@@ -19,7 +19,6 @@ export const fetchOffersAction = createAsyncThunk(
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       store.dispatch(loadOffers(data));
-      store.dispatch(dataLoaded(true));
     } catch (error) {
       errorHandle(error);
     }
@@ -46,11 +45,9 @@ export const fetchOfferAction = createAsyncThunk(
         store.dispatch(loadOffer(d1.data));
         store.dispatch(loadReviews(d2.data));
         store.dispatch(loadNeighborsOffers(d3.data));
-        store.dispatch(dataLoaded(true));
       }))
       .catch((Error) => {
         errorHandle(Error);
-        store.dispatch(dataLoaded(true));
       });
   },
 );

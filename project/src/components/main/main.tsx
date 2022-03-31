@@ -7,7 +7,7 @@ import { OffersSort } from '../offers-sort/offers-sort';
 import { getCurrentOffers } from './main.utils';
 import { Header } from '../header/header';
 import { fetchOffersAction } from '../../store/api-actions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
 
@@ -17,10 +17,17 @@ interface MainProps {
 
 export function Main({ offers }: MainProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus, isDataLoaded } = useAppSelector((st) => st);
+  const { authorizationStatus } = useAppSelector((st) => st);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  const fetchData = async () => {
+    await dispatch(fetchOffersAction());
+    setIsDataLoaded(true);
+  };
+
   useEffect(() => {
-    dispatch(fetchOffersAction());
-  }, []);
+    fetchData();
+  }, [isDataLoaded]);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const cities = useAppSelector((state) => state.cities);

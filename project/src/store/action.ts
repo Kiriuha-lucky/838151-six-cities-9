@@ -11,7 +11,6 @@ export const Action = {
   LOAD_OFFER: 'LOAD_OFFER',
   LOAD_REVIEWS: 'LOAD_REVIEWS',
   LOAD_NEIGHBORS_OFFERS: 'LOAD_NEIGHBORS_OFFERS',
-  DATA_LOADED: 'DATA_LOADED',
   AUTHORIZATION: 'AUTHORIZATION',
 };
 
@@ -22,8 +21,6 @@ export const selectedOfferId = createAction(Action.SELECTED_OFFER_ID, (value: in
 export const offersSort = createAction(Action.OFFERS_SORT, (value: initialStateType['offersSortingType']) => ({ payload: value }));
 
 export const loadOffers = createAction(Action.LOAD_OFFERS, (value: Offer[]) => ({ payload: value }));
-
-export const dataLoaded = createAction(Action.DATA_LOADED, (value: initialStateType['isDataLoaded']) => ({ payload: value }));
 
 export const loadOffer = createAction(Action.LOAD_OFFER, (value: Offer) => ({ payload: value }));
 

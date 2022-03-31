@@ -12,7 +12,6 @@ import { fetchOfferAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Spinner } from '../spinner/spinner';
 import { useEffect, useState } from 'react';
-import { dataLoaded } from '../../store/action';
 import { AuthorizationStatus } from '../../types/authorization.types';
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
@@ -21,24 +20,26 @@ export function Property(): JSX.Element {
   const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
 
-  const [load, setLoad] = useState(false);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const fetchData = async () => {
+    await dispatch(fetchOfferAction(offerId));
+    setIsDataLoaded(true);
+  };
 
   useEffect(() => {
-    dispatch(dataLoaded(false));
-    dispatch(fetchOfferAction(offerId));
-    setLoad(true);
-  }, [offerId, load]);
+    fetchData();
+  }, [offerId, isDataLoaded]);
 
-  const { isDataLoaded, authorizationStatus } = useAppSelector((st) => st);
+  const { authorizationStatus } = useAppSelector((st) => st);
   const { currentOffer, reviews, neighborsOffers } = useAppSelector((st) => st.offer);
 
-  if (!isDataLoaded || !load) {
+  if (!isDataLoaded) {
     return (
       <Spinner />
     );
   }
 
-  if (Object.keys(currentOffer).length === 0 && load) {
+  if (Object.keys(currentOffer).length === 0 && isDataLoaded) {
     return (<Navigate to={AppRoutes.NotFound} />);
   }
 
