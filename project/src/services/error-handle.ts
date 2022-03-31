@@ -8,8 +8,9 @@ export const errorHandle = (error: unknown): void => {
   }
 
   const { response } = error;
-
+  /*eslint-disable*/
   if (response) {
+    console.log(response);
     switch (response.status) {
       case HTTP_CODE.BAD_REQUEST:
         toast.error(response.data.error);

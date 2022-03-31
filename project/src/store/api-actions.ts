@@ -41,7 +41,7 @@ export const fetchOfferAction = createAsyncThunk(
       return api.get(`${APIRoute.NeighborsOffers}/${id}/nearby`);
     }
 
-    Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
+    await Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
       .then(axios.spread((d1, d2, d3) => {
         store.dispatch(loadOffer(d1.data));
         store.dispatch(loadReviews(d2.data));

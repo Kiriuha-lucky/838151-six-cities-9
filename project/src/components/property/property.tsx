@@ -11,7 +11,7 @@ import { Header } from '../header/header';
 import { fetchOfferAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Spinner } from '../spinner/spinner';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { dataLoaded } from '../../store/action';
 import { AuthorizationStatus } from '../../types/authorization.types';
 
@@ -21,21 +21,24 @@ export function Property(): JSX.Element {
   const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
 
+  const [load, setLoad] = useState(false);
+
   useEffect(() => {
     dispatch(dataLoaded(false));
     dispatch(fetchOfferAction(offerId));
-  }, [offerId, dispatch]);
+    setLoad(true);
+  }, [offerId, load]);
 
   const { isDataLoaded, authorizationStatus } = useAppSelector((st) => st);
   const { currentOffer, reviews, neighborsOffers } = useAppSelector((st) => st.offer);
 
-  if (!isDataLoaded) {
+  if (!isDataLoaded || !load) {
     return (
       <Spinner />
     );
   }
 
-  if (!currentOffer.id) {
+  if (Object.keys(currentOffer).length === 0 && load) {
     return (<Navigate to={AppRoutes.NotFound} />);
   }
 
