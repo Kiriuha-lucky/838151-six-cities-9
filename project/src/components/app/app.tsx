@@ -6,17 +6,15 @@ import { NotFound } from '../not-found/not-found';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.types';
 import { PrivateRoute } from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
 
 export function App(): JSX.Element {
-  const {offers, authorizationStatus } = useAppSelector((state) => state);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoutes.Main}
-          element={<Main offers={offers} />}
+          element={<Main />}
         />
         <Route
           path={AppRoutes.Login}
@@ -29,8 +27,8 @@ export function App(): JSX.Element {
         <Route
           path={AppRoutes.Favorites}
           element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <Favorites offers={offers} />
+            <PrivateRoute>
+              <Favorites />
             </PrivateRoute>
           }
         />

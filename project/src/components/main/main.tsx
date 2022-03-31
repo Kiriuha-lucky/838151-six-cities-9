@@ -1,4 +1,3 @@
-import { Offer } from '../../types/offer.types';
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -11,13 +10,9 @@ import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
 
-interface MainProps {
-  offers: Offer[],
-}
-
-export function Main({ offers }: MainProps): JSX.Element {
+export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus } = useAppSelector((st) => st);
+  const { authorizationStatus, offers } = useAppSelector((st) => st);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const fetchData = async () => {
