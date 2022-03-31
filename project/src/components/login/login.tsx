@@ -13,7 +13,7 @@ export function Login(): JSX.Element {
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
-    return navigate(-1);
+    return navigate('/');
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
