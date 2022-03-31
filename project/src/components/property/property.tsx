@@ -129,19 +129,17 @@ export function Property(): JSX.Element {
               </div>
 
               <section className="property__reviews reviews">
-                {reviews.length !== 0 ? (
+                {reviews.length !== 0 && (
                   <>
                     <h2 className="reviews__title">
                       Reviews · <span className="reviews__amount">{reviews.length}</span>
                     </h2>
                     <ReviewsList reviews={reviews} />
                   </>
-                ) : (
-                  <div></div>
                 )}
-                {authorizationStatus === AuthorizationStatus.Auth ? (
+                {authorizationStatus === AuthorizationStatus.Auth && (
                   <ReviewForm />
-                ) : (<div></div>)}
+                )}
               </section>
             </div>
           </div>
