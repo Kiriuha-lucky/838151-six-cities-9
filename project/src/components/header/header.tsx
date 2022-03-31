@@ -6,6 +6,7 @@ import { logoutAction } from '../../store/api-actions';
 export function Header(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
+  const isAuthorized = authorizationStatus !== AuthorizationStatus.Auth;
 
   const logout = function (evt: React.SyntheticEvent) {
     evt.preventDefault();
@@ -22,7 +23,7 @@ export function Header(): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {authorizationStatus !== AuthorizationStatus.Auth ? (
+          {isAuthorized ? (
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
