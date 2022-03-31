@@ -90,7 +90,7 @@ export const logoutAction = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'addComment',
-  async ({ ratingCount: rating, comment, id }: Rating) => {
+  async ({ rating, comment, id }: Rating) => {
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       toast.info('Комментарий добавлен');

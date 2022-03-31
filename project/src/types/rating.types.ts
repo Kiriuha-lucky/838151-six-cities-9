@@ -1,5 +1,5 @@
 export interface Rating {
   comment: string,
-  ratingCount: number,
+  rating: number,
   id: number,
 }

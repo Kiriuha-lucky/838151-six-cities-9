@@ -31,7 +31,7 @@ export function ReviewForm(): JSX.Element {
 
     if (rating && reviewText !== null) {
       (async () => {
-        await dispatch(addComment({ ratingCount: rating, comment: reviewText, id: Number(offerId) }));
+        await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
         setRating(1);
         setReviewText('');
       })();
