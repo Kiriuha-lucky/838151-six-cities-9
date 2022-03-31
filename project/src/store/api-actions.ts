@@ -60,7 +60,6 @@ export const requireAuthAction = createAsyncThunk(
       await api.get(APIRoute.Login);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch (error) {
-      errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
