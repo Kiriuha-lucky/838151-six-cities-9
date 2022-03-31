@@ -2,7 +2,6 @@ import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { addComment } from '../../store/api-actions';
-import { Rating } from '../../types/rating.types';
 
 export interface Review {
   rating: number,
@@ -10,7 +9,7 @@ export interface Review {
 }
 
 export function ReviewForm(): JSX.Element {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState('');
   const offerId = useParams().id;
 
@@ -26,15 +25,16 @@ export function ReviewForm(): JSX.Element {
     const { value } = evt.target;
     setReviewText(value);
   };
-  const onSubmit = ({ ratingCount, comment, id }: Rating) => {
-    dispatch(addComment({ ratingCount, comment, id }));
-  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (rating && reviewText !== null) {
-      onSubmit({ ratingCount: rating, comment: reviewText, id: Number(offerId) });
+      (async () => {
+        await dispatch(addComment({ ratingCount: rating, comment: reviewText, id: Number(offerId) }));
+        setRating(1);
+        setReviewText('');
+      })();
     }
   };
 
@@ -51,6 +51,7 @@ export function ReviewForm(): JSX.Element {
           id="5-stars"
           type="radio"
           defaultValue={5}
+          checked = {rating === 5}
         />
         <label
           htmlFor="5-stars"
@@ -68,6 +69,7 @@ export function ReviewForm(): JSX.Element {
           id="4-stars"
           type="radio"
           defaultValue={4}
+          checked = {rating === 4}
         />
         <label
           htmlFor="4-stars"
@@ -85,6 +87,7 @@ export function ReviewForm(): JSX.Element {
           id="3-stars"
           type="radio"
           defaultValue={3}
+          checked = {rating === 3}
         />
         <label
           htmlFor="3-stars"
@@ -102,6 +105,7 @@ export function ReviewForm(): JSX.Element {
           id="2-stars"
           type="radio"
           defaultValue={2}
+          checked = {rating === 2}
         />
         <label
           htmlFor="2-stars"
@@ -119,6 +123,7 @@ export function ReviewForm(): JSX.Element {
           id="1-star"
           type="radio"
           defaultValue={1}
+          checked = {rating === 1}
         />
         <label
           htmlFor="1-star"
