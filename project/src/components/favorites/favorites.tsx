@@ -1,19 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer.types';
-import { FavoriteLocationItem } from '../favorite-location-item/favorite-location-item';
+//import { FavoriteLocationItem } from '../favorite-location-item/favorite-location-item';
 
-interface FavoritesProps {
-  offers: Offer[]
-}
+export function Favorites(): JSX.Element {
 
-export function Favorites({ offers }: FavoritesProps): JSX.Element {
-
-  const cityNames = offers.reduce((uniqCityNames: string[], offer) => {
-    if (!uniqCityNames.includes(offer.city.name)) {
-      uniqCityNames.push(offer.city.name);
-    }
-    return uniqCityNames;
-  }, []);
+  // const cityNames = offers.reduce((uniqCityNames: string[], offer) => {
+  //   if (!uniqCityNames.includes(offer.city.name)) {
+  //     uniqCityNames.push(offer.city.name);
+  //   }
+  //   return uniqCityNames;
+  // }, []);
 
   return (
     <div className="page">
@@ -50,7 +45,7 @@ export function Favorites({ offers }: FavoritesProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={offers.filter((offer) => offer.city.name === city)} />)}
+              {/* {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={offers.filter((offer) => offer.city.name === city)} />)} */}
             </ul>
           </section>
         </div>
