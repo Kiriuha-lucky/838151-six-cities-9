@@ -25,7 +25,6 @@ export function Main(): JSX.Element {
   }, []);
 
   const currentCity = useAppSelector((state) => state.currentCity);
-  const cities = useAppSelector((state) => state.cities);
   const offersSortingType = useAppSelector((state) => state.offersSortingType);
 
   const currentOffers = getCurrentOffers(offers, currentCity, offersSortingType);
@@ -43,7 +42,7 @@ export function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList cities={cities} currentCity={currentCity} />
+            <CitiesList currentCity={currentCity} />
           </section>
         </div>
         <div className="cities">
