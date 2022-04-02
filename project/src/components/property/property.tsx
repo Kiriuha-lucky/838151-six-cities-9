@@ -28,7 +28,7 @@ export function Property(): JSX.Element {
 
   useEffect(() => {
     fetchData();
-  }, [offerId, isDataLoaded]);
+  }, [offerId]);
 
   const { authorizationStatus } = useAppSelector((st) => st);
   const { currentOffer, reviews, neighborsOffers } = useAppSelector((st) => st.offer);
