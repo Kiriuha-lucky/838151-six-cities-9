@@ -22,7 +22,7 @@ export function Main(): JSX.Element {
 
   useEffect(() => {
     fetchData();
-  }, [isDataLoaded]);
+  }, []);
 
   const currentCity = useAppSelector((state) => state.currentCity);
   const cities = useAppSelector((state) => state.cities);
