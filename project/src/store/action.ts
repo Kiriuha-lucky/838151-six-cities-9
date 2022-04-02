@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offer } from '../types/offer.types';
 import { ReviewType } from '../types/review.types';
-import { initialStateType } from './reducer';
+import { InitialStateType } from './reducer';
 
 export const Action = {
   GET_CURRENT_CITY: 'GET_CURRENT_CITY',
@@ -14,11 +14,11 @@ export const Action = {
   AUTHORIZATION: 'AUTHORIZATION',
 };
 
-export const getCurrentCity = createAction(Action.GET_CURRENT_CITY, (value: initialStateType['currentCity']) => ({ payload: value }));
+export const getCurrentCity = createAction(Action.GET_CURRENT_CITY, (value: InitialStateType['currentCity']) => ({ payload: value }));
 
-export const selectedOfferId = createAction(Action.SELECTED_OFFER_ID, (value: initialStateType['selectedOfferId']) => ({ payload: value }));
+export const selectedOfferId = createAction(Action.SELECTED_OFFER_ID, (value: InitialStateType['selectedOfferId']) => ({ payload: value }));
 
-export const offersSort = createAction(Action.OFFERS_SORT, (value: initialStateType['offersSortingType']) => ({ payload: value }));
+export const offersSort = createAction(Action.OFFERS_SORT, (value: InitialStateType['offersSortingType']) => ({ payload: value }));
 
 export const loadOffers = createAction(Action.LOAD_OFFERS, (value: Offer[]) => ({ payload: value }));
 
@@ -28,4 +28,4 @@ export const loadReviews = createAction(Action.LOAD_REVIEWS, (value: ReviewType[
 
 export const loadNeighborsOffers = createAction(Action.LOAD_NEIGHBORS_OFFERS, (value: Offer[]) => ({ payload: value }));
 
-export const requireAuthorization = createAction(Action.AUTHORIZATION, (value: initialStateType['authorizationStatus']) => ({ payload: value }));
+export const requireAuthorization = createAction(Action.AUTHORIZATION, (value: InitialStateType['authorizationStatus']) => ({ payload: value }));

@@ -6,7 +6,7 @@ import { ReviewType } from '../types/review.types';
 import { AuthorizationStatus } from '../types/authorization.types';
 
 export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
-export interface initialStateType {
+export interface InitialStateType {
   currentCity: string,
   cities: string[],
   offers: Offer[],
@@ -21,7 +21,7 @@ export interface initialStateType {
   },
 }
 
-const initialState: initialStateType = {
+const initialState: InitialStateType = {
   currentCity: 'Paris',
   cities: CITIES,
   offers: [],
