@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentCity } from '../../store/action';
@@ -32,3 +31,5 @@ export const CitiesList = memo(({ currentCity }: CitiesListProps): JSX.Element =
     </ul>
   );
 });
+
+CitiesList.displayName = 'CitiesList';

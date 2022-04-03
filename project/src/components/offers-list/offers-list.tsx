@@ -24,7 +24,7 @@ export function OffersList({ offers, className }: OffersListProps): JSX.Element 
             <PlaceCard {...offer} className={className} />
           </li>);
       })}
-    </ul >
+    </ul>
   );
 }
 
