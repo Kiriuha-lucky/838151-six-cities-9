@@ -1,27 +1,39 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CITIES } from '../types/cities';
-import { dataLoaded, getCurrentCity, loadOffers, offersSort, selectedOfferId } from './action';
-import { Offer, ReviewType } from '../components/app/app';
+import { getCurrentCity, loadNeighborsOffers, loadOffer, loadOffers, loadReviews, offersSort, requireAuthorization, selectedOfferId } from './action';
+import { Offer } from '../types/offer.types';
+import { ReviewType } from '../types/review.types';
+import { AuthorizationStatus } from '../types/authorization.types';
 
 export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
-export interface initialStateType {
+export interface InitialStateType {
   currentCity: string,
   cities: string[],
   offers: Offer[],
   reviews: ReviewType[],
   selectedOfferId: number,
   offersSortingType: OffersSortingType,
-  isDataLoaded: boolean,
+  authorizationStatus: string,
+  offer: {
+    currentOffer: Offer,
+    reviews: ReviewType[],
+    neighborsOffers: Offer[]
+  },
 }
 
-const initialState: initialStateType = {
+const initialState: InitialStateType = {
   currentCity: 'Paris',
   cities: CITIES,
   offers: [],
   reviews: [],
   selectedOfferId: 0,
   offersSortingType: 'Popular',
-  isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  offer: {
+    currentOffer: {} as Offer,
+    reviews: [],
+    neighborsOffers: [],
+  },
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -42,7 +54,19 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     });
   builder
-    .addCase(dataLoaded, (state, action) => {
-      state.isDataLoaded = action.payload;
+    .addCase(loadOffer, (state, action) => {
+      state.offer.currentOffer = action.payload;
+    });
+  builder
+    .addCase(loadReviews, (state, action) => {
+      state.offer.reviews = action.payload;
+    });
+  builder
+    .addCase(loadNeighborsOffers, (state, action) => {
+      state.offer.neighborsOffers = action.payload;
+    });
+  builder
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });

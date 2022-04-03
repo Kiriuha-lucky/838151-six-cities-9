@@ -1,4 +1,4 @@
-import { ReviewType } from '../app/app';
+import { ReviewType } from '../../types/review.types';
 import { RatingStars } from '../rating-stars/rating-stars';
 
 export function Review({ user, comment, date, rating }: ReviewType): JSX.Element {

@@ -1,13 +1,13 @@
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentCity } from '../../store/action';
 
 interface CitiesListProps {
-  cities: string[],
   currentCity: string
 }
 
-export function CitiesList({ cities, currentCity }: CitiesListProps): JSX.Element {
+export function CitiesList({ currentCity }: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const cities = useAppSelector((state) => state.cities);
 
 
   return (

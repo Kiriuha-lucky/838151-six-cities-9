@@ -1,6 +1,6 @@
-import { initialStateType } from '../store/reducer';
+import { InitialStateType } from '../store/reducer';
 
-export const SORT_TYPES: initialStateType['offersSortingType'][] = [
+export const SORT_TYPES: InitialStateType['offersSortingType'][] = [
   'Popular',
   'Price: low to high',
   'Price: high to low',

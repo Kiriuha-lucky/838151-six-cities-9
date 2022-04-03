@@ -1,66 +1,51 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { AppRoutes } from '../../types/routes.types';
 import { OfferImage } from '../offer-image';
-import { Offer, ReviewType } from '../app/app';
 import { OfferInsideItem } from '../offer-inside-item/offer-inside-item';
 import { RatingStars } from '../rating-stars/rating-stars';
 import { ReviewForm } from '../review-form/review-form';
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
 import { ReviewsList } from '../reviews-list/reviews-list';
-interface PropertyProps {
-  offers: Offer[],
-  reviews: ReviewType[]
-}
+import { Header } from '../header/header';
+import { fetchOfferAction } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Spinner } from '../spinner/spinner';
+import { useEffect, useState } from 'react';
+import { AuthorizationStatus } from '../../types/authorization.types';
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
-export function Property({ offers, reviews }: PropertyProps): JSX.Element {
-  const offerId = useParams().id;
-  const currentOffer = offers.find((offer) => offer.id === Number(offerId));
-  const neighborsOffers: Offer[] = offers.filter((offer) => currentOffer?.city.name === offer.city.name).slice(0, 3);
 
-  if (!currentOffer) {
+export function Property(): JSX.Element {
+  const offerId = Number(useParams().id);
+  const dispatch = useAppDispatch();
+
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const fetchData = async () => {
+    await dispatch(fetchOfferAction(offerId));
+    setIsDataLoaded(true);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [offerId]);
+
+  const { authorizationStatus } = useAppSelector((st) => st);
+  const { currentOffer, reviews, neighborsOffers } = useAppSelector((st) => st.offer);
+
+  if (!isDataLoaded) {
+    return (
+      <Spinner />
+    );
+  }
+
+  if (Object.keys(currentOffer).length === 0 && isDataLoaded) {
     return (<Navigate to={AppRoutes.NotFound} />);
   }
+
   return (
     <div className="page" >
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <Link className="header__logo-link" to="/">
-                <img
-                  className="header__logo"
-                  src="img/logo.svg"
-                  alt="6 cities logo"
-                  width={81}
-                  height={41}
-                />
-              </Link>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a
-                    className="header__nav-link header__nav-link--profile"
-                    href="/"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                    <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
-                    </span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -142,12 +127,19 @@ export function Property({ offers, reviews }: PropertyProps): JSX.Element {
                   </p>
                 </div>
               </div>
+
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">{reviews.length}</span>
-                </h2>
-                <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                {reviews.length !== 0 && (
+                  <>
+                    <h2 className="reviews__title">
+                      Reviews · <span className="reviews__amount">{reviews.length}</span>
+                    </h2>
+                    <ReviewsList reviews={reviews} />
+                  </>
+                )}
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <ReviewForm />
+                )}
               </section>
             </div>
           </div>
