@@ -11,7 +11,8 @@ import { AuthData } from '../types/auth-data.types';
 import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
-import { loadNeighborsOffers, loadOffer, loadOffers, loadReviews, requireAuthorization } from './action';
+import { requireAuthorization } from './auth/auth';
+import { loadOffers, loadOffer, loadReviews, loadNeighborsOffers } from './data/data';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',

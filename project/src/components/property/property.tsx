@@ -30,8 +30,8 @@ export function Property(): JSX.Element {
     fetchData();
   }, [offerId]);
 
-  const { authorizationStatus } = useAppSelector((st) => st);
-  const { currentOffer, reviews, neighborsOffers } = useAppSelector((st) => st.offer);
+  const { authorizationStatus } = useAppSelector(({ AUTH }) => AUTH);
+  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ DATA }) => DATA.offer);
 
   if (!isDataLoaded) {
     return (

@@ -5,7 +5,7 @@ import { logoutAction } from '../../store/api-actions';
 import { memo } from 'react';
 
 export const Header = memo((): JSX.Element => {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {authorizationStatus} = useAppSelector(({AUTH}) => AUTH);
   const dispatch = useAppDispatch();
   const isAuthorized = authorizationStatus !== AuthorizationStatus.Auth;
 

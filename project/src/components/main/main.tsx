@@ -12,8 +12,10 @@ import { Spinner } from '../spinner/spinner';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus, offers } = useAppSelector((st) => st);
+  const { authorizationStatus } = useAppSelector(({ AUTH }) => AUTH);
+  const { offers } = useAppSelector(({ DATA }) => DATA);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const { currentCity, offersSortingType } = useAppSelector(({ CONTROL }) => CONTROL);
 
   const fetchData = async () => {
     await dispatch(fetchOffersAction());
@@ -23,9 +25,6 @@ export function Main(): JSX.Element {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offersSortingType = useAppSelector((state) => state.offersSortingType);
 
   const currentOffers = getCurrentOffers(offers, currentCity, offersSortingType);
 

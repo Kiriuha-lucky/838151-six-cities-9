@@ -9,7 +9,7 @@ type PrivateRouteProps = {
 }
 
 export function PrivateRoute({ children }: PrivateRouteProps): JSX.Element {
-  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
+  const { authorizationStatus } = useAppSelector(({ AUTH }) => AUTH);
 
   return (
     authorizationStatus === AuthorizationStatus.Auth

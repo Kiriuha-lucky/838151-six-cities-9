@@ -1,6 +1,7 @@
 import { memo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCurrentCity } from '../../store/action';
+import { useAppDispatch } from '../../hooks';
+import { getCurrentCity } from '../../store/control/control';
+import { CITIES } from '../../types/cities';
 
 interface CitiesListProps {
   currentCity: string
@@ -8,7 +9,7 @@ interface CitiesListProps {
 
 export const CitiesList = memo(({ currentCity }: CitiesListProps): JSX.Element => {
   const dispatch = useAppDispatch();
-  const cities = useAppSelector((state) => state.cities);
+  const cities = CITIES;
 
 
   return (

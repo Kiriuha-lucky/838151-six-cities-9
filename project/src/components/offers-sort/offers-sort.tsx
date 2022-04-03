@@ -1,7 +1,7 @@
 import { memo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector, useOnClickOutside } from '../../hooks';
-import { offersSort } from '../../store/action';
-import { OffersSortingType } from '../../store/reducer';
+import { offersSort } from '../../store/control/control';
+import { OffersSortingType } from '../../types/state';
 import { SORT_TYPES } from '../../types/sort-type';
 import './offers-sort.css';
 
@@ -10,7 +10,7 @@ export const OffersSort = memo((): JSX.Element => {
   const sortClassName = open ? 'places__options--opened' : '';
   const arrowClassName = open ? 'places__sorting-arrow places__sorting-arrow--open' : 'places__sorting-arrow';
   const dispatch = useAppDispatch();
-  const offersSortActive = useAppSelector((state) => state.offersSortingType);
+  const offersSortActive = useAppSelector(({ CONTROL }) => CONTROL.offersSortingType);
 
   function handleSortClick(sortType: OffersSortingType) {
     dispatch(offersSort(sortType));

@@ -1,4 +1,4 @@
-import { OffersSortingType } from '../../store/reducer';
+import { OffersSortingType } from '../../types/state';
 import { Offer } from '../../types/offer.types';
 
 function getOffersSortingFunction(offersSortingType: OffersSortingType) {
