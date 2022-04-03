@@ -27,3 +27,5 @@ export function OffersList({ offers, className }: OffersListProps): JSX.Element 
     </ul >
   );
 }
+
+

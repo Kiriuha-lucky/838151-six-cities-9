@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface RatingStarsProps {
   rating: number,
   children?: JSX.Element,
@@ -6,9 +8,9 @@ interface RatingStarsProps {
 
 const MAX_STARS = 5;
 
-export function RatingStars({ rating, children, className }: RatingStarsProps): JSX.Element {
+export const RatingStars = memo(({ rating, children, className }: RatingStarsProps): JSX.Element => {
   const styleStar = {
-    width: `${rating* 100 / MAX_STARS  }%`,
+    width: `${rating * 100 / MAX_STARS}%`,
   };
 
   return (
@@ -20,4 +22,6 @@ export function RatingStars({ rating, children, className }: RatingStarsProps): 
       {children}
     </div>
   );
-}
+}, (prevProps, nextProps)=> prevProps.rating === nextProps.rating);
+
+RatingStars.displayName = 'RatingStars';

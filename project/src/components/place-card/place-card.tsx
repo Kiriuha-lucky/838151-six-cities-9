@@ -1,14 +1,17 @@
+/*eslint-disable*/
 import { Offer } from '../../types/offer.types';
 import { Link } from 'react-router-dom';
 import { RatingStars } from '../rating-stars/rating-stars';
+import { memo } from 'react';
 
 type PlaceCardProps = Offer & {
   className?: 'near-places',
 }
 
-export function PlaceCard({ id, isPremium, isFavorite, previewImage, price, rating, title, type, className }: PlaceCardProps): JSX.Element {
+export const PlaceCard = memo(({ id, isPremium, isFavorite, previewImage, price, rating, title, type, className }: PlaceCardProps): JSX.Element => {
   const articleClassName = !className ? 'cities__place-card' : `${className}__card`;
   const imageWrapperClassName = !className ? 'cities__image-wrapper' : `${className}__image-wrapper`;
+  console.log('render place card');
 
   return (
     <article className={` ${articleClassName} place-card`}>
@@ -53,4 +56,5 @@ export function PlaceCard({ id, isPremium, isFavorite, previewImage, price, rati
       </div>
     </article>
   );
-}
+})
+

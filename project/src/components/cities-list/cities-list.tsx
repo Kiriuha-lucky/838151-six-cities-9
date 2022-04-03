@@ -1,3 +1,5 @@
+/*eslint-disable*/
+import { memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentCity } from '../../store/action';
 
@@ -5,7 +7,7 @@ interface CitiesListProps {
   currentCity: string
 }
 
-export function CitiesList({ currentCity }: CitiesListProps): JSX.Element {
+export const CitiesList = memo(({ currentCity }: CitiesListProps): JSX.Element => {
   const dispatch = useAppDispatch();
   const cities = useAppSelector((state) => state.cities);
 
@@ -29,4 +31,4 @@ export function CitiesList({ currentCity }: CitiesListProps): JSX.Element {
       )}
     </ul>
   );
-}
+});
