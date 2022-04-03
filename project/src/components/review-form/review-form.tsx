@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
@@ -27,18 +26,17 @@ export function ReviewForm(): JSX.Element {
     setReviewText(value);
   };
 
-  return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={
-      async (evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        if (rating && reviewText !== null) {
-          await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
-          setRating(1);
-          setReviewText('');
-        }
-      }
+  const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (rating && reviewText !== null) {
+      await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
+      setRating(1);
+      setReviewText('');
     }
-    >
+  };
+
+  return (
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
