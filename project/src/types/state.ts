@@ -1,6 +1,7 @@
-import {store} from '../store/index.js';
-import { Offer } from './offer.types.js';
-import { ReviewType } from './review.types.js';
+import {store} from '../store/index';
+import { AuthorizationStatus } from './authorization.types';
+import { Offer } from './offer.types';
+import { ReviewType } from './review.types';
 
 export interface Data {
   offers: Offer[],
@@ -12,7 +13,7 @@ export interface Data {
 }
 
 export interface Auth {
-  authorizationStatus: string,
+  authorizationStatus: AuthorizationStatus,
 }
 
 export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
