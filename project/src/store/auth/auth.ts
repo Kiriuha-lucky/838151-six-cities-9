@@ -3,7 +3,7 @@ import { AuthorizationStatus } from '../../types/authorization.types';
 import { Auth } from '../../types/state';
 
 const initialState: Auth = {
-  authorizationStatus: AuthorizationStatus.Unknown,
+  authorizationStatus: 'UNKNOWN' as AuthorizationStatus,
 };
 
 export const auth = createSlice({
