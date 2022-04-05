@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Spinner } from '../spinner/spinner';
 import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
+import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
 
@@ -30,7 +31,7 @@ export function Property(): JSX.Element {
     fetchData();
   }, [offerId]);
 
-  const { authorizationStatus } = useAppSelector(({ auth }) => auth);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ data }) => data.offer);
 
   if (!isDataLoaded) {

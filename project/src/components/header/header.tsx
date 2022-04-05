@@ -3,9 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { logoutAction } from '../../store/api-actions';
 import { memo } from 'react';
+import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
 export const Header = memo((): JSX.Element => {
-  const {authorizationStatus} = useAppSelector(({auth}) => auth);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const isAuthorized = authorizationStatus !== AuthorizationStatus.Auth;
 

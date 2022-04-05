@@ -9,10 +9,11 @@ import { fetchOffersAction } from '../../store/api-actions';
 import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
+import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus } = useAppSelector(({ auth }) => auth);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { offers } = useAppSelector(({ data }) => data);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { currentCity, offersSortingType } = useAppSelector(({ control }) => control);
