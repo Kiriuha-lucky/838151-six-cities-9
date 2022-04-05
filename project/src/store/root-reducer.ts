@@ -4,7 +4,7 @@ import { control } from './control/control';
 import { data } from './data/data';
 
 export const rootReducer = combineReducers({
-  'DATA': data.reducer,
-  'AUTH': auth.reducer,
-  'CONTROL': control.reducer,
+  'data': data.reducer,
+  'auth': auth.reducer,
+  'control': control.reducer,
 });

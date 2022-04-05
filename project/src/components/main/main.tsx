@@ -12,10 +12,10 @@ import { Spinner } from '../spinner/spinner';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus } = useAppSelector(({ AUTH }) => AUTH);
-  const { offers } = useAppSelector(({ DATA }) => DATA);
+  const { authorizationStatus } = useAppSelector(({ auth }) => auth);
+  const { offers } = useAppSelector(({ data }) => data);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const { currentCity, offersSortingType } = useAppSelector(({ CONTROL }) => CONTROL);
+  const { currentCity, offersSortingType } = useAppSelector(({ control }) => control);
 
   const fetchData = async () => {
     await dispatch(fetchOffersAction());

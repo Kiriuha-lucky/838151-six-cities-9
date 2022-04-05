@@ -10,7 +10,7 @@ export const OffersSort = memo((): JSX.Element => {
   const sortClassName = open ? 'places__options--opened' : '';
   const arrowClassName = open ? 'places__sorting-arrow places__sorting-arrow--open' : 'places__sorting-arrow';
   const dispatch = useAppDispatch();
-  const offersSortActive = useAppSelector(({ CONTROL }) => CONTROL.offersSortingType);
+  const offersSortActive = useAppSelector(({ control }) => control.offersSortingType);
 
   function handleSortClick(sortType: OffersSortingType) {
     dispatch(offersSort(sortType));
