@@ -7,7 +7,7 @@ const initialState: Auth = {
 };
 
 export const auth = createSlice({
-  name: 'AUTH',
+  name: 'auth',
   initialState,
   reducers: {
     requireAuthorization: (state, action) => {

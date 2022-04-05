@@ -8,7 +8,7 @@ const initialState: Control = {
 };
 
 export const control = createSlice({
-  name: 'CONTROL',
+  name: 'control',
   initialState,
   reducers: {
     getCurrentCity: (state, action) => {

@@ -12,7 +12,7 @@ const initialState: Data = {
 };
 
 export const data = createSlice({
-  name: 'DATA',
+  name: 'data',
   initialState,
   reducers: {
     loadOffers: (state, action) => {
