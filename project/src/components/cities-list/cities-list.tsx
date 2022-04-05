@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { getCurrentCity } from '../../store/control/control';
-import { CITIES } from '../../types/cities';
+import { CITIES } from './cities';
 
 interface CitiesListProps {
   currentCity: string
@@ -9,12 +9,10 @@ interface CitiesListProps {
 
 export const CitiesList = memo(({ currentCity }: CitiesListProps): JSX.Element => {
   const dispatch = useAppDispatch();
-  const cities = CITIES;
-
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city: string) => {
+      {CITIES.map((city: string) => {
         const locationClassName = currentCity === city ? 'tabs__item--active' : '';
         return (
           <li className="locations__item" key={city}>
