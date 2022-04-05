@@ -15,19 +15,19 @@ export const data = createSlice({
   name: 'data',
   initialState,
   reducers: {
-    loadOffers: (state, action) => {
+    setOffers: (state, action) => {
       state.offers = action.payload;
     },
-    loadOffer: (state, action) => {
+    setOffer: (state, action) => {
       state.offer.currentOffer = action.payload;
     },
-    loadReviews: (state, action) => {
+    setReviews: (state, action) => {
       state.offer.reviews = action.payload;
     },
-    loadNeighborsOffers: (state, action) => {
+    setNeighborsOffers: (state, action) => {
       state.offer.neighborsOffers = action.payload;
     },
   },
 });
 
-export const { loadOffers, loadOffer, loadReviews, loadNeighborsOffers } = data.actions;
+export const { setOffers, setOffer, setReviews, setNeighborsOffers } = data.actions;
