@@ -11,14 +11,16 @@ import { AuthData } from '../types/auth-data.types';
 import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
-import { loadNeighborsOffers, loadOffer, loadOffers, loadReviews, requireAuthorization } from './action';
+import { requireAuthorization } from './auth/auth';
+import { setOffers } from './offers-list/offers-list';
+import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
-      store.dispatch(loadOffers(data));
+      store.dispatch(setOffers(data));
     } catch (error) {
       errorHandle(error);
     }
@@ -42,9 +44,9 @@ export const fetchOfferAction = createAsyncThunk(
 
     await Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
       .then(axios.spread((d1, d2, d3) => {
-        store.dispatch(loadOffer(d1.data));
-        store.dispatch(loadReviews(d2.data));
-        store.dispatch(loadNeighborsOffers(d3.data));
+        store.dispatch(setOffer(d1.data));
+        store.dispatch(setReviews(d2.data));
+        store.dispatch(setNeighborsOffers(d3.data));
       }))
       .catch((Error) => {
         errorHandle(Error);
@@ -90,13 +92,14 @@ export const logoutAction = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'addComment',
-  async ({ rating, comment, id }: Rating) => {
+  async ({ rating, comment, id }: Rating, {dispatch}) => {
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       toast.info('Комментарий добавлен');
-      store.dispatch(loadReviews(data));
+      dispatch(setReviews(data));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
+

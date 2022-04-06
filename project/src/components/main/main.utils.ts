@@ -1,4 +1,4 @@
-import { OffersSortingType } from '../../store/reducer';
+import { OffersSortingType } from '../../types/state';
 import { Offer } from '../../types/offer.types';
 
 function getOffersSortingFunction(offersSortingType: OffersSortingType) {
@@ -13,7 +13,6 @@ function getOffersSortingFunction(offersSortingType: OffersSortingType) {
       return function (a: Offer, b: Offer) { return b.rating - a.rating; };
   }
 }
-
 export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
   return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }

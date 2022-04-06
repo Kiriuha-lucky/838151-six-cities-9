@@ -1,11 +1,23 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
-import { reducer } from './reducer';
+import { AuthorizationStatus } from '../types/authorization.types';
+import { Offer } from '../types/offer.types';
+import { Control, OffersSortingType, Property } from '../types/state';
+import { rootReducer } from './root-reducer';
 
 export const api = createAPI();
 
+export interface State {
+  offersList: Offer[],
+  property: Property,
+  auth: AuthorizationStatus,
+  control: Control,
+  sort: OffersSortingType,
+  currentCity: string,
+}
+
 export const store = configureStore({
-  reducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {

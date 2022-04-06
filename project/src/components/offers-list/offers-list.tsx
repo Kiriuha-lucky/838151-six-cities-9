@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { selectedOfferId } from '../../store/action';
+import { selectedOfferId } from '../../store/control/control';
 import { Offer } from '../../types/offer.types';
 import { PlaceCard } from '../place-card/place-card';
 
@@ -24,6 +24,8 @@ export function OffersList({ offers, className }: OffersListProps): JSX.Element 
             <PlaceCard {...offer} className={className} />
           </li>);
       })}
-    </ul >
+    </ul>
   );
 }
+
+

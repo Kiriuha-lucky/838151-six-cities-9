@@ -1,19 +1,19 @@
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector, useOnClickOutside } from '../../hooks';
-import { offersSort } from '../../store/action';
-import { OffersSortingType } from '../../store/reducer';
+import { setOffersSort } from '../../store/sort/sort';
+import { OffersSortingType } from '../../types/state';
 import { SORT_TYPES } from '../../types/sort-type';
 import './offers-sort.css';
 
-export function OffersSort(): JSX.Element {
+export const OffersSort = memo((): JSX.Element => {
   const [open, setOpen] = useState(false);
   const sortClassName = open ? 'places__options--opened' : '';
   const arrowClassName = open ? 'places__sorting-arrow places__sorting-arrow--open' : 'places__sorting-arrow';
   const dispatch = useAppDispatch();
-  const offersSortActive = useAppSelector((state) => state.offersSortingType);
+  const offersSortActive = useAppSelector(({ sort }) => sort);
 
   function handleSortClick(sortType: OffersSortingType) {
-    dispatch(offersSort(sortType));
+    dispatch(setOffersSort(sortType));
   }
 
   function handleOpenClick() {
@@ -38,4 +38,7 @@ export function OffersSort(): JSX.Element {
       </ul>
     </form>
   );
-}
+});
+
+OffersSort.displayName = 'OffersSort';
+

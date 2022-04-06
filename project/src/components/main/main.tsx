@@ -6,28 +6,30 @@ import { OffersSort } from '../offers-sort/offers-sort';
 import { getCurrentOffers } from './main.utils';
 import { Header } from '../header/header';
 import { fetchOffersAction } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
+import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const { authorizationStatus, offers } = useAppSelector((st) => st);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const offers = useAppSelector(({ offersList }) => offersList);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const city = useAppSelector(({ currentCity }) => currentCity);
+  const offersSortingType = useAppSelector((state) => state.sort);
 
-  const fetchData = async () => {
+  const currentOffers = useMemo(() => getCurrentOffers(offers, city, offersSortingType), [offers, city, offersSortingType]);
+
+  const fetchData = useCallback(async () => {
     await dispatch(fetchOffersAction());
     setIsDataLoaded(true);
-  };
+  }, []);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const currentCity = useAppSelector((state) => state.currentCity);
-  const offersSortingType = useAppSelector((state) => state.offersSortingType);
-
-  const currentOffers = getCurrentOffers(offers, currentCity, offersSortingType);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || !isDataLoaded) {
     return (
@@ -42,7 +44,7 @@ export function Main(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList currentCity={currentCity} />
+            <CitiesList currentCity={city} />
           </section>
         </div>
         <div className="cities">
@@ -51,7 +53,7 @@ export function Main(): JSX.Element {
               <section className="cities__no-places">
                 <div className="cities__status-wrapper tabs__content">
                   <b className="cities__status">No places to stay available</b>
-                  <p className="cities__status-description">We could not find any property available at the moment in {currentCity}</p>
+                  <p className="cities__status-description">We could not find any property available at the moment in {city}</p>
                 </div>
               </section>
               <div className="cities__right-section"></div>
@@ -59,7 +61,7 @@ export function Main(): JSX.Element {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
+                  <b className="places__found">{currentOffers.length} places to stay in {city}</b>
                   <OffersSort />
                   <OffersList offers={currentOffers} />
                 </section>

@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { logoutAction } from '../../store/api-actions';
+import { memo } from 'react';
+import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
-export function Header(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+export const Header = memo((): JSX.Element => {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const isAuthorized = authorizationStatus !== AuthorizationStatus.Auth;
 
@@ -57,4 +59,6 @@ export function Header(): JSX.Element {
       </div>
     </header>
   );
-}
+});
+
+Header.displayName = 'Header';
