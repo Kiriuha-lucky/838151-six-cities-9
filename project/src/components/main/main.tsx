@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -6,7 +7,7 @@ import { OffersSort } from '../offers-sort/offers-sort';
 import { getCurrentOffers } from './main.utils';
 import { Header } from '../header/header';
 import { fetchOffersAction } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
 import { getAuthorizationStatus } from './../../store/selectors/selectors';
@@ -17,19 +18,22 @@ export function Main(): JSX.Element {
   const { offers } = useAppSelector(({ offersList }) => offersList);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { currentCity, offersSortingType } = useAppSelector(({ control }) => control);
+  const currentOffers = useMemo(() => getCurrentOffers(offers, currentCity, offersSortingType), [offers, currentCity, offersSortingType]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     await dispatch(fetchOffersAction());
     setIsDataLoaded(true);
-  };
+  }, []);
 
   useEffect(() => {
+    console.log('effect');
     fetchData();
   }, []);
 
-  const currentOffers = getCurrentOffers(offers, currentCity, offersSortingType);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || !isDataLoaded) {
+    console.log('spinner');
+
     return (
       <Spinner />
     );
