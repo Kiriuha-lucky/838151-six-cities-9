@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import { OffersList } from '../offers-list/offers-list';
 import { Map } from '../map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -26,14 +25,11 @@ export function Main(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log('effect');
     fetchData();
   }, []);
 
 
   if (authorizationStatus === AuthorizationStatus.Unknown || !isDataLoaded) {
-    console.log('spinner');
-
     return (
       <Spinner />
     );

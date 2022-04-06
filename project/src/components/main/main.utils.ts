@@ -13,8 +13,6 @@ function getOffersSortingFunction(offersSortingType: OffersSortingType) {
       return function (a: Offer, b: Offer) { return b.rating - a.rating; };
   }
 }
-/*eslint-disable*/
 export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
-  console.log('calc');
   return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }
