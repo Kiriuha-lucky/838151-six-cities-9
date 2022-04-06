@@ -1,14 +1,36 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-//import { FavoriteLocationItem } from '../favorite-location-item/favorite-location-item';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoritesOffersAction } from '../../store/api-actions';
+import { FavoriteLocationItem } from '../favorite-location-item/favorite-location-item';
+import { Spinner } from '../spinner/spinner';
 
 export function Favorites(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const favoritesOffers = useAppSelector(({favoritesOffersList}) => favoritesOffersList);
 
-  // const cityNames = offers.reduce((uniqCityNames: string[], offer) => {
-  //   if (!uniqCityNames.includes(offer.city.name)) {
-  //     uniqCityNames.push(offer.city.name);
-  //   }
-  //   return uniqCityNames;
-  // }, []);
+  const fetchData = async () => {
+    await dispatch(fetchFavoritesOffersAction());
+    setIsDataLoaded(true);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const cityNames = favoritesOffers.reduce((uniqCityNames: string[], offer) => {
+    if (!uniqCityNames.includes(offer.city.name)) {
+      uniqCityNames.push(offer.city.name);
+    }
+    return uniqCityNames;
+  }, []);
+
+  if (!isDataLoaded) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <div className="page">
@@ -45,7 +67,7 @@ export function Favorites(): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {/* {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={offers.filter((offer) => offer.city.name === city)} />)} */}
+              {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={favoritesOffers.filter((offer) => offer.city.name === city)} />)}
             </ul>
           </section>
         </div>

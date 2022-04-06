@@ -19,9 +19,7 @@ export interface Auth {
 
 export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
 export interface Control {
-  currentCity: string,
   selectedOfferId: number,
-  offersSortingType: OffersSortingType,
 }
 
 export type AppDispatch = typeof store.dispatch;

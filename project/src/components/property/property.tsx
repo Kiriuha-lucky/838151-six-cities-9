@@ -21,6 +21,8 @@ const IMG_COUNT_ON_OFFER_PAGE = 6;
 export function Property(): JSX.Element {
   const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ property }) => property);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const fetchData = async () => {
@@ -31,9 +33,6 @@ export function Property(): JSX.Element {
   useEffect(() => {
     fetchData();
   }, [offerId]);
-
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ property }) => property);
 
   if (!isDataLoaded) {
     return (

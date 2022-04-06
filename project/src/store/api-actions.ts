@@ -106,7 +106,7 @@ export const logoutAction = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'addComment',
-  async ({ rating, comment, id }: Rating, {dispatch}) => {
+  async ({ rating, comment, id }: Rating, { dispatch }) => {
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       toast.info('Комментарий добавлен');
@@ -119,9 +119,18 @@ export const addComment = createAsyncThunk(
 
 export const toogleFavorites = createAsyncThunk(
   'inFavorites',
-  async ({ id, isFavorite }: FavoriteType) => {
+  async ({ id, isFavorite, loc }: FavoriteType) => {
     try {
-      await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      const { data } = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
+      switch (true) {
+        case (loc.includes('offer')):
+          return store.dispatch(setOffer(data));
+        case (loc.includes('favorites')):
+          return store.dispatch(fetchFavoritesOffersAction());
+        default:
+          return store.dispatch(fetchOffersAction());
+      }
     } catch (error) {
       errorHandle(error);
     }
