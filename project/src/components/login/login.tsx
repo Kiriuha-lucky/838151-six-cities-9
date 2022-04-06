@@ -1,8 +1,11 @@
 import { FormEvent, useRef } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { setCurrentCity } from '../../store/current-city/current-city';
 import { AuthData } from '../../types/auth-data.types';
+import { getRandomCity } from './login.utils';
+import './login.css';
 
 export function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -26,6 +29,13 @@ export function Login(): JSX.Element {
       });
     }
   };
+
+  const randomCity = getRandomCity();
+
+  function showCityOffers(city: string) {
+    dispatch(setCurrentCity(city));
+    return navigate('/');
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -59,9 +69,9 @@ export function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
+              <button className="locations__item-link" onClick={() => showCityOffers(randomCity)}>
+                <span>{randomCity}</span>
+              </button>
             </div>
           </section>
         </div>
