@@ -5,8 +5,8 @@ import { offersList } from './offers-list/offers-list';
 import { property } from './property/property';
 
 export const rootReducer = combineReducers({
-  'offersList': offersList.reducer,
-  'property': property.reducer,
-  'auth': auth.reducer,
-  'control': control.reducer,
+  offersList: offersList.reducer,
+  property: property.reducer,
+  auth: auth.reducer,
+  control: control.reducer,
 });

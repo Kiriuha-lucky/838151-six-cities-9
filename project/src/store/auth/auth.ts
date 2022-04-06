@@ -1,18 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../types/authorization.types';
-import { Auth } from '../../types/state';
-
-const initialState: Auth = {
-  authorizationStatus: 'UNKNOWN' as AuthorizationStatus,
-};
 
 export const auth = createSlice({
   name: 'auth',
-  initialState,
+  initialState: AuthorizationStatus.Unknown,
   reducers: {
-    requireAuthorization: (state, action) => {
-      state.authorizationStatus = action.payload;
-    },
+    requireAuthorization: (state, action) => action.payload,
   },
 });
 
