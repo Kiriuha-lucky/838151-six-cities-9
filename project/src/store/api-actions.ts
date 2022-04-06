@@ -14,6 +14,8 @@ import { UserData } from '../types/user-data.types';
 import { requireAuthorization } from './auth/auth';
 import { setOffers } from './offers-list/offers-list';
 import { setNeighborsOffers, setOffer, setReviews } from './property/property';
+import { FavoriteType } from '../types/favorite.types';
+import { setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
@@ -21,6 +23,18 @@ export const fetchOffersAction = createAsyncThunk(
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       store.dispatch(setOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavoritesOffersAction = createAsyncThunk(
+  'fetchOffersAction',
+  async () => {
+    try {
+      const { data } = await api.get<Offer[]>(APIRoute.FavoritesOffers);
+      store.dispatch(setFavoritesOffers(data));
     } catch (error) {
       errorHandle(error);
     }
@@ -103,3 +117,13 @@ export const addComment = createAsyncThunk(
   },
 );
 
+export const toogleFavorites = createAsyncThunk(
+  'inFavorites',
+  async ({ id, isFavorite }: FavoriteType) => {
+    try {
+      await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
