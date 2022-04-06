@@ -4,8 +4,8 @@ export const currentCity = createSlice({
   name: 'currentCity',
   initialState: 'Paris',
   reducers: {
-    getCurrentCity: (state, action: PayloadAction<string>) => action.payload,
+    setCurrentCity: (state, action: PayloadAction<string>) => action.payload,
   },
 });
 
-export const { getCurrentCity } = currentCity.actions;
+export const { setCurrentCity } = currentCity.actions;

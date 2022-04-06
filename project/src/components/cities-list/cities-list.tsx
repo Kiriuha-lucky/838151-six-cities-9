@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getCurrentCity } from '../../store/current-city/current-city';
+import { setCurrentCity } from '../../store/current-city/current-city';
 import { CITIES } from './cities';
 
 interface CitiesListProps {
@@ -19,7 +19,7 @@ export const CitiesList = memo(({ currentCity }: CitiesListProps): JSX.Element =
             <a className={`locations__item-link tabs__item ${locationClassName}`} href="/"
               onClick={(evt) => {
                 evt.preventDefault();
-                dispatch(getCurrentCity(city));
+                dispatch(setCurrentCity(city));
               }}
             >
               <span>{city}</span>
