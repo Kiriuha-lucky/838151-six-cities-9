@@ -32,7 +32,7 @@ export function Property(): JSX.Element {
   }, [offerId]);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ data }) => data.offer);
+  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ property }) => property);
 
   if (!isDataLoaded) {
     return (

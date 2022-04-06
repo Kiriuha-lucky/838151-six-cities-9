@@ -3,13 +3,14 @@ import { AuthorizationStatus } from './authorization.types';
 import { Offer } from './offer.types';
 import { ReviewType } from './review.types';
 
-export interface Data {
+export interface Offers {
   offers: Offer[],
-  offer: {
-    currentOffer: Offer,
-    reviews: ReviewType[],
-    neighborsOffers: Offer[]
-  },
+}
+
+export interface Property {
+  currentOffer: Offer,
+  reviews: ReviewType[],
+  neighborsOffers: Offer[]
 }
 
 export interface Auth {

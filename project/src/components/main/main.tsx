@@ -14,7 +14,7 @@ import { getAuthorizationStatus } from './../../store/selectors/selectors';
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const { offers } = useAppSelector(({ data }) => data);
+  const { offers } = useAppSelector(({ offersList }) => offersList);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const { currentCity, offersSortingType } = useAppSelector(({ control }) => control);
 

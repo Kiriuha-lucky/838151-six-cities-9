@@ -12,7 +12,8 @@ import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
 import { requireAuthorization } from './auth/auth';
-import { setOffers, setOffer, setReviews, setNeighborsOffers } from './data/data';
+import { setOffers } from './offers-list/offers-list';
+import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
