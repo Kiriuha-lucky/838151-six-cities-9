@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { getCurrentCity } from '../../store/control/control';
+import { getCurrentCity } from '../../store/current-city/current-city';
 import { CITIES } from './cities';
 
 interface CitiesListProps {
