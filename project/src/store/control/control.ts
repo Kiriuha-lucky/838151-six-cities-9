@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Control } from '../../types/state';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Control, OffersSortingType } from '../../types/state';
 
 const initialState: Control = {
   currentCity: 'Paris',
@@ -11,13 +11,13 @@ export const control = createSlice({
   name: 'control',
   initialState,
   reducers: {
-    getCurrentCity: (state, action) => {
+    getCurrentCity: (state, action: PayloadAction<string>) => {
       state.currentCity = action.payload;
     },
-    selectedOfferId: (state, action) => {
+    selectedOfferId: (state, action: PayloadAction<number>) => {
       state.selectedOfferId = action.payload;
     },
-    offersSort: (state, action) => {
+    offersSort: (state, action: PayloadAction<OffersSortingType>) => {
       state.offersSortingType = action.payload;
     },
   },

@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Offer } from '../../types/offer.types';
 import { Offers } from '../../types/state';
 
 const initialState: Offers = {
@@ -9,7 +10,7 @@ export const offersList = createSlice({
   name: 'offersList',
   initialState,
   reducers: {
-    setOffers: (state, action) => {
+    setOffers: (state, action: PayloadAction<Offer[]>) => {
       state.offers = action.payload;
     },
   },
