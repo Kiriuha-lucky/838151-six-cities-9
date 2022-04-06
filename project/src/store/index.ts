@@ -14,6 +14,7 @@ export interface State {
   control: Control,
   sort: OffersSortingType,
   currentCity: string,
+  favoritesOffersList: Offer[]
 }
 
 export const store = configureStore({
