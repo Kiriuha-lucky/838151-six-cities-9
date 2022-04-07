@@ -11,7 +11,7 @@ export interface State {
   offersList: Offer[],
   property: Property,
   auth: AuthorizationStatus,
-  control: number,
+  activeOffer: number,
   sort: OffersSortingType,
   currentCity: string,
   favoritesOffersList: Offer[]
