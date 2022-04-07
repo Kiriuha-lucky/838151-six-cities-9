@@ -8,7 +8,7 @@ import { Spinner } from '../spinner/spinner';
 export function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const favoritesOffers = useAppSelector(({favoritesOffersList}) => favoritesOffersList);
+  const favoritesOffers = Object.values(useAppSelector(({favoritesOffersList}) => favoritesOffersList));
 
   const fetchData = async () => {
     await dispatch(fetchFavoritesOffersAction());

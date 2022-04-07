@@ -14,5 +14,5 @@ function getOffersSortingFunction(offersSortingType: OffersSortingType) {
   }
 }
 export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
-  return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
+  return Object.values(offers).filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }

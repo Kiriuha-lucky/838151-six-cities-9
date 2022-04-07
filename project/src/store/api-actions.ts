@@ -16,13 +16,14 @@ import { setOffers } from './offers-list/offers-list';
 import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 import { FavoriteType } from '../types/favorite.types';
 import { setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
-
+import { normalize } from './store.utils';
+/*eslint-disable*/
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
-      store.dispatch(setOffers(data));
+      store.dispatch(setOffers(normalize(data)));
     } catch (error) {
       errorHandle(error);
     }
@@ -34,7 +35,7 @@ export const fetchFavoritesOffersAction = createAsyncThunk(
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Favorite);
-      store.dispatch(setFavoritesOffers(data));
+      store.dispatch(setFavoritesOffers(normalize(data)));
     } catch (error) {
       errorHandle(error);
     }
@@ -127,9 +128,18 @@ export const toogleFavorites = createAsyncThunk(
         case (location.includes(APIRoute.Offer)):
           return store.dispatch(setOffer(data));
         case (location.includes(APIRoute.FavoritesOffers)):
-          return store.dispatch(fetchFavoritesOffersAction());
+          let favoritesOffers: { [offerId: number]: Offer } = Object.assign({}, store.getState().favoritesOffersList);
+          delete favoritesOffers[id];
+          return store.dispatch(setFavoritesOffers(favoritesOffers));
         default:
-          return store.dispatch(fetchOffersAction());
+          let offers: { [offerId: number]: Offer } = Object.assign({}, store.getState().offersList);
+          if (isFavorite) {
+            offers[id] = data;
+            return store.dispatch(setOffers(offers));
+          } else {
+            delete offers[id];
+            return store.dispatch(setOffers(offers));
+          }
       }
     } catch (error) {
       errorHandle(error);

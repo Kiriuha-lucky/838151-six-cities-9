@@ -30,6 +30,6 @@ export const FavoritePlaceCard = memo(({ id, isPremium, isFavorite, previewImage
       <p className="place-card__type">{type}</p>
     </div>
   </article>
-), (prevProps, nextProps) => prevProps.isFavorite === nextProps.isFavorite);
+));
 
 FavoritePlaceCard.displayName = 'FavoritePlaceCard';
