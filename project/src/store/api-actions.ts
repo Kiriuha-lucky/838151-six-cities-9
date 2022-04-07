@@ -45,7 +45,7 @@ export const fetchOfferAction = createAsyncThunk(
   'fetchOfferAction',
   async (id: number) => {
     function getOffer() {
-      return api.get<Offer>(`${APIRoute.Offer}/${id}`);
+      return api.get<Offer>(`${APIRoute.Offers}/${id}`);
     }
 
     function getReviews() {
@@ -124,9 +124,9 @@ export const toogleFavorites = createAsyncThunk(
       const { data } = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
       isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
       switch (true) {
-        case (loc.includes('offer')):
+        case (loc.includes(APIRoute.Offer)):
           return store.dispatch(setOffer(data));
-        case (loc.includes('favorites')):
+        case (loc.includes(APIRoute.FavoritesOffers)):
           return store.dispatch(fetchFavoritesOffersAction());
         default:
           return store.dispatch(fetchOffersAction());
