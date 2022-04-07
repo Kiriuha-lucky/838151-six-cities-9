@@ -119,14 +119,14 @@ export const addComment = createAsyncThunk(
 
 export const toogleFavorites = createAsyncThunk(
   'inFavorites',
-  async ({ id, isFavorite, loc }: FavoriteType) => {
+  async ({ id, isFavorite, location }: FavoriteType) => {
     try {
       const { data } = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
       isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
       switch (true) {
-        case (loc.includes(APIRoute.Offer)):
+        case (location.includes(APIRoute.Offer)):
           return store.dispatch(setOffer(data));
-        case (loc.includes(APIRoute.FavoritesOffers)):
+        case (location.includes(APIRoute.FavoritesOffers)):
           return store.dispatch(fetchFavoritesOffersAction());
         default:
           return store.dispatch(fetchOffersAction());

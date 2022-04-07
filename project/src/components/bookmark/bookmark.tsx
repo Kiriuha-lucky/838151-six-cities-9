@@ -18,14 +18,14 @@ export function Bookmark({ id, isFavorite, width, height, className }: BookmarkP
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const loc = useLocation().pathname;
+  const location = useLocation().pathname;
 
   const toogleBookmark = () => {
     if (authorizationStatus !== AuthorizationStatus.Auth) {
       return navigate(AppRoutes.Login);
     }
 
-    return isFavorite ? dispatch(toogleFavorites({ id: id, isFavorite: 0, loc: loc })) : dispatch(toogleFavorites({ id: id, isFavorite: 1, loc: loc }));
+    return isFavorite ? dispatch(toogleFavorites({ id: id, isFavorite: 0, location: location })) : dispatch(toogleFavorites({ id: id, isFavorite: 1, location: location }));
   };
 
   return (
