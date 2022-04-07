@@ -33,7 +33,7 @@ export const fetchFavoritesOffersAction = createAsyncThunk(
   'fetchOffersAction',
   async () => {
     try {
-      const { data } = await api.get<Offer[]>(APIRoute.FavoritesOffers);
+      const { data } = await api.get<Offer[]>(APIRoute.Favorite);
       store.dispatch(setFavoritesOffers(data));
     } catch (error) {
       errorHandle(error);

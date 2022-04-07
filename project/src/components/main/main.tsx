@@ -10,7 +10,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
 import { getAuthorizationStatus } from './../../store/selectors/selectors';
-import { Link } from 'react-router-dom';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -40,9 +39,6 @@ export function Main(): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
-      {/* это временно, чтобы удобнее было переходить на страницу
-      избранных ну и потому что прямой переход пока не работает */}
-      <Link to='/favorites'>Favorites</Link>
       <Header />
       <main className={`page__main page__main--index ${!currentOffers.length ? 'page__main--index-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>

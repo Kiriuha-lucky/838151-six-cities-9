@@ -1,6 +1,6 @@
 export enum APIRoute {
   Offers = '/hotels',
-  FavoritesOffers = '/favorite',
+  FavoritesOffers = '/favorites',
   Login = '/login',
   Logout = '/logout',
   Offer = '/hotels',
