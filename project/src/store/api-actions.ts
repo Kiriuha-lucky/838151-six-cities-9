@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Offer } from '../types/offer.types';
 import { errorHandle } from '../services/error-handle';
@@ -12,10 +12,10 @@ import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
 import { requireAuthorization } from './auth/auth';
-import { setOffers } from './offers-list/offers-list';
+import { setOffers, updateOffers } from './offers-list/offers-list';
 import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 import { FavoriteType } from '../types/favorite.types';
-import { setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
+import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
 import { normalize } from './store.utils';
 
 export const fetchOffersAction = createAsyncThunk(
@@ -120,29 +120,22 @@ export const addComment = createAsyncThunk(
 
 export const toogleFavorites = createAsyncThunk(
   'inFavorites',
-  async ({ id, isFavorite, location }: FavoriteType) => {
+  async ({ id, isFavorite, location }: FavoriteType, { dispatch }) => {
     try {
-      const { data } = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      const { data: offer }: AxiosResponse<Offer> = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
       isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
-      switch (true) {
-        case (location.includes(APIRoute.Offer)):
-          return store.dispatch(setOffer(data));
-        case (location.includes(APIRoute.FavoritesOffers)): {
-          const favoritesOffers: { [offerId: number]: Offer } = Object.assign({}, store.getState().favoritesOffersList);
-          delete favoritesOffers[id];
-          return store.dispatch(setFavoritesOffers(favoritesOffers));
-        }
-        default: {
-          const offers: { [offerId: number]: Offer } = Object.assign({}, store.getState().offersList);
-          if (isFavorite) {
-            offers[id] = data;
-            return store.dispatch(setOffers(offers));
-          } else {
-            delete offers[id];
-            return store.dispatch(setOffers(offers));
-          }
-        }
+
+      if (location.includes(APIRoute.Offer)) {
+        dispatch(setOffer(offer));
+        return;
       }
+
+      if (location.includes(APIRoute.FavoritesOffers)) {
+        dispatch(deleteFavoritesOffer(id));
+        return;
+      }
+
+      dispatch(updateOffers({ id, offer }));
     } catch (error) {
       errorHandle(error);
     }
