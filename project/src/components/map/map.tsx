@@ -26,7 +26,7 @@ export function Map({ offers }: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const { selectedOfferId } = useAppSelector(({ control }) => control);
+  const selectedOfferId = useAppSelector(({ activeOffer }) => activeOffer);
 
   useEffect(() => {
     if (map) {

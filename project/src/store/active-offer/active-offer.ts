@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export const control = createSlice({
+export const activeOffer = createSlice({
   name: 'control',
   initialState: 0,
   reducers: {
@@ -8,4 +8,4 @@ export const control = createSlice({
   },
 });
 
-export const { selectedOfferId } = control.actions;
+export const { selectedOfferId } = activeOffer.actions;

@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { addComment } from '../../store/api-actions';
+import { toast } from 'react-toastify';
 
 export interface Review {
   rating: number,
@@ -12,6 +13,8 @@ export function ReviewForm(): JSX.Element {
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState('');
   const offerId = useParams().id;
+  const MIN_REVIEW_LENGTH = 50;
+  const MAX_REVIEW_LENGTH = 300;
 
 
   const dispatch = useAppDispatch();
@@ -28,6 +31,9 @@ export function ReviewForm(): JSX.Element {
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    if(reviewText.length < MIN_REVIEW_LENGTH || reviewText.length > MAX_REVIEW_LENGTH){
+      return toast.error('Комментарий должен содержать от 50 до 300 символов');
+    }
     if (rating && reviewText !== null) {
       await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
       setRating(1);

@@ -7,13 +7,10 @@ import { getCurrentOffers } from './main.utils';
 import { Header } from '../header/header';
 import { fetchOffersAction } from '../../store/api-actions';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AuthorizationStatus } from '../../types/authorization.types';
 import { Spinner } from '../spinner/spinner';
-import { getAuthorizationStatus } from './../../store/selectors/selectors';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offers = useAppSelector(({ offersList }) => offersList);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const city = useAppSelector(({ currentCity }) => currentCity);
@@ -31,7 +28,7 @@ export function Main(): JSX.Element {
   }, []);
 
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || !isDataLoaded) {
+  if (!isDataLoaded) {
     return (
       <Spinner />
     );

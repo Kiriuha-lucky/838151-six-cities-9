@@ -1,15 +1,25 @@
 import { FormEvent, useRef } from 'react';
-import { Link, useNavigate} from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { setCurrentCity } from '../../store/current-city/current-city';
 import { AuthData } from '../../types/auth-data.types';
+import { getRandomCity } from './login.utils';
+import './login.css';
+import { AppRoutes } from '../../types/routes.types';
+import { AuthorizationStatus } from '../../types/authorization.types';
+import { getAuthorizationStatus } from '../../store/selectors/selectors';
 
 export function Login(): JSX.Element {
+  const dispatch = useAppDispatch();
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const dispatch = useAppDispatch();
-
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return (<Navigate to={AppRoutes.Main} />);
+  }
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -26,6 +36,13 @@ export function Login(): JSX.Element {
       });
     }
   };
+
+  const randomCity = getRandomCity();
+
+  function showCityOffers(city: string) {
+    dispatch(setCurrentCity(city));
+    return navigate('/');
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -59,9 +76,9 @@ export function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
+              <button className="locations__item-link" onClick={() => showCityOffers(randomCity)}>
+                <span>{randomCity}</span>
+              </button>
             </div>
           </section>
         </div>

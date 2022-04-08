@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../../hooks';
-import { selectedOfferId } from '../../store/control/control';
+import { selectedOfferId } from '../../store/active-offer/active-offer';
 import { Offer } from '../../types/offer.types';
 import { PlaceCard } from '../place-card/place-card';
 

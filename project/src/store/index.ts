@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 import { AuthorizationStatus } from '../types/authorization.types';
 import { Offer } from '../types/offer.types';
-import { Control, OffersSortingType, Property } from '../types/state';
+import { OffersSortingType, Property } from '../types/state';
 import { rootReducer } from './root-reducer';
 
 export const api = createAPI();
@@ -11,9 +11,10 @@ export interface State {
   offersList: Offer[],
   property: Property,
   auth: AuthorizationStatus,
-  control: Control,
+  activeOffer: number,
   sort: OffersSortingType,
   currentCity: string,
+  favoritesOffersList: Offer[]
 }
 
 export const store = configureStore({

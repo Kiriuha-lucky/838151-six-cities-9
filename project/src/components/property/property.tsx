@@ -14,12 +14,15 @@ import { Spinner } from '../spinner/spinner';
 import { useEffect, useState } from 'react';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { getAuthorizationStatus } from './../../store/selectors/selectors';
+import { Bookmark } from '../bookmark/bookmark';
 
 const IMG_COUNT_ON_OFFER_PAGE = 6;
 
 export function Property(): JSX.Element {
   const offerId = Number(useParams().id);
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ property }) => property);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const fetchData = async () => {
@@ -30,9 +33,6 @@ export function Property(): JSX.Element {
   useEffect(() => {
     fetchData();
   }, [offerId]);
-
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const { currentOffer, reviews, neighborsOffers } = useAppSelector(({ property }) => property);
 
   if (!isDataLoaded) {
     return (
@@ -64,21 +64,7 @@ export function Property(): JSX.Element {
                 <h1 className="property__name">
                   {currentOffer.title}
                 </h1>
-                {currentOffer.isFavorite ? (
-                  <button className='property__bookmark-button property__bookmark-button--active button' type="button">
-                    <svg className="property__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">In bookmarks</span>
-                  </button>
-                ) : (
-                  <button className='property__bookmark-button button' type="button">
-                    <svg className="property__bookmark-icon" width={31} height={33}>
-                      <use xlinkHref="#icon-bookmark" />
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                )}
+                <Bookmark id={currentOffer.id} className='property' width={31} height={33} isFavorite={currentOffer.isFavorite} />
               </div>
               <div className="property__rating rating">
                 <RatingStars rating={currentOffer.rating} className='property'>

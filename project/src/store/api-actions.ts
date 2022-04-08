@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Offer } from '../types/offer.types';
 import { errorHandle } from '../services/error-handle';
@@ -12,15 +12,36 @@ import { AuthorizationStatus } from '../types/authorization.types';
 import { Rating } from '../types/rating.types';
 import { UserData } from '../types/user-data.types';
 import { requireAuthorization } from './auth/auth';
-import { setOffers } from './offers-list/offers-list';
+import { setOffers, updateOffers } from './offers-list/offers-list';
 import { setNeighborsOffers, setOffer, setReviews } from './property/property';
+import { FavoriteType } from '../types/favorite.types';
+import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
+import { normalize, schema } from 'normalizr';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
-      store.dispatch(setOffers(data));
+      const offerSchema = new schema.Entity('offers');
+      const offerListSchema = new schema.Array(offerSchema);
+      const normalizedData = normalize(data, offerListSchema);
+      store.dispatch(setOffers(normalizedData.entities.offers));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavoritesOffersAction = createAsyncThunk(
+  'fetchOffersAction',
+  async () => {
+    try {
+      const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+      const offerSchema = new schema.Entity('offers');
+      const offerListSchema = new schema.Array(offerSchema);
+      const normalizedData = normalize(data, offerListSchema);
+      store.dispatch(setFavoritesOffers(normalizedData.entities.offers));
     } catch (error) {
       errorHandle(error);
     }
@@ -31,7 +52,7 @@ export const fetchOfferAction = createAsyncThunk(
   'fetchOfferAction',
   async (id: number) => {
     function getOffer() {
-      return api.get<Offer>(`${APIRoute.Offer}/${id}`);
+      return api.get<Offer>(`${APIRoute.Offers}/${id}`);
     }
 
     function getReviews() {
@@ -92,7 +113,7 @@ export const logoutAction = createAsyncThunk(
 
 export const addComment = createAsyncThunk(
   'addComment',
-  async ({ rating, comment, id }: Rating, {dispatch}) => {
+  async ({ rating, comment, id }: Rating, { dispatch }) => {
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       toast.info('Комментарий добавлен');
@@ -103,3 +124,26 @@ export const addComment = createAsyncThunk(
   },
 );
 
+export const toogleFavorites = createAsyncThunk(
+  'inFavorites',
+  async ({ id, isFavorite, location }: FavoriteType, { dispatch }) => {
+    try {
+      const { data: offer }: AxiosResponse<Offer> = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
+
+      if (location.includes(APIRoute.Offer)) {
+        dispatch(setOffer(offer));
+        return;
+      }
+
+      if (location.includes(APIRoute.FavoritesOffers)) {
+        dispatch(deleteFavoritesOffer(id));
+        return;
+      }
+
+      dispatch(updateOffers({ id, offer }));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
