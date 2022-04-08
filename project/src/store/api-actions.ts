@@ -16,14 +16,17 @@ import { setOffers, updateOffers } from './offers-list/offers-list';
 import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 import { FavoriteType } from '../types/favorite.types';
 import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
-import { normalize } from './store.utils';
+import { normalize, schema } from 'normalizr';
 
 export const fetchOffersAction = createAsyncThunk(
   'fetchOffersAction',
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
-      store.dispatch(setOffers(normalize(data)));
+      const offerSchema = new schema.Entity('offers');
+      const offerListSchema = new schema.Array(offerSchema);
+      const normalizedData = normalize(data, offerListSchema);
+      store.dispatch(setOffers(normalizedData.entities.offers));
     } catch (error) {
       errorHandle(error);
     }
@@ -35,7 +38,10 @@ export const fetchFavoritesOffersAction = createAsyncThunk(
   async () => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Favorite);
-      store.dispatch(setFavoritesOffers(normalize(data)));
+      const offerSchema = new schema.Entity('offers');
+      const offerListSchema = new schema.Array(offerSchema);
+      const normalizedData = normalize(data, offerListSchema);
+      store.dispatch(setFavoritesOffers(normalizedData.entities.offers));
     } catch (error) {
       errorHandle(error);
     }
