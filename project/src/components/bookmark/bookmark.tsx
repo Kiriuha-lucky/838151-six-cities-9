@@ -25,11 +25,7 @@ export function Bookmark({ id, isFavorite, width, height, className }: BookmarkP
       return navigate(AppRoutes.Login);
     }
 
-    const addToFavorites = () => dispatch(toogleFavorites({ id: id, isFavorite: 1, location: location }));
-
-    const deleteFromFavorites = () => dispatch(toogleFavorites({ id: id, isFavorite: 0, location: location }));
-
-    return isFavorite ? deleteFromFavorites() : addToFavorites();
+    return dispatch(toogleFavorites({ id: id, isFavorite: isFavorite ? 0 : 1, location: location }));
   };
 
   return (
