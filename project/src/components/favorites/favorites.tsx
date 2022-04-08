@@ -32,6 +32,8 @@ export function Favorites(): JSX.Element {
     );
   }
 
+  const filteredOffers = (city: string) => favoritesOffers.filter((offer) => offer.city.name === city);
+
   return (
     <div className="page">
       <header className="header">
@@ -69,7 +71,7 @@ export function Favorites(): JSX.Element {
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
-                  {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={favoritesOffers.filter((offer) => offer.city.name === city)} />)}
+                  {cityNames.map((city) => <FavoriteLocationItem key={city} cityName={city} offers={filteredOffers(city)} />)}
                 </ul>
               </section>
             ) : (
