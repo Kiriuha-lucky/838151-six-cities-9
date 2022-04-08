@@ -11,7 +11,7 @@ import { Spinner } from '../spinner/spinner';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector(({ offersList }) => offersList);
+  const offers = Object.values(useAppSelector(({ offersList }) => offersList));
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const city = useAppSelector(({ currentCity }) => currentCity);
   const offersSortingType = useAppSelector((state) => state.sort);

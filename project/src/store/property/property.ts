@@ -6,7 +6,7 @@ import { Property } from '../../types/state';
 const initialState: Property = {
   currentOffer: {} as Offer,
   reviews: [],
-  neighborsOffers: [],
+  neighborsOffers: {},
 };
 
 export const property = createSlice({
@@ -19,7 +19,7 @@ export const property = createSlice({
     setReviews: (state, action: PayloadAction<ReviewType[]>) => {
       state.reviews = action.payload;
     },
-    setNeighborsOffers: (state, action: PayloadAction<Offer[]>) => {
+    setNeighborsOffers: (state, action) => {
       state.neighborsOffers = action.payload;
     },
   },

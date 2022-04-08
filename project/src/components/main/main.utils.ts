@@ -1,7 +1,6 @@
-import { OffersSortingType } from '../../types/state';
 import { Offer } from '../../types/offer.types';
 
-function getOffersSortingFunction(offersSortingType: OffersSortingType) {
+function getOffersSortingFunction(offersSortingType: string) {
   switch (offersSortingType) {
     case 'Popular':
       return;
@@ -13,6 +12,6 @@ function getOffersSortingFunction(offersSortingType: OffersSortingType) {
       return function (a: Offer, b: Offer) { return b.rating - a.rating; };
   }
 }
-export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
-  return Object.values(offers).filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
+export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: string) {
+  return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }
