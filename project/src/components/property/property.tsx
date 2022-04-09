@@ -131,7 +131,7 @@ export function Property(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={Object.values(neighborsOffers)} />
+            <Map offers={Object.values(neighborsOffers)} currentOffer={currentOffer}/>
           </section>
         </section>
         <div className="container">
