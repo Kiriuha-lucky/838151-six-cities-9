@@ -17,6 +17,7 @@ import { FavoriteType } from '../types/favorite.types';
 import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
 import { normalize, schema } from 'normalizr';
 import { AppDispatch } from '../types/state';
+import { store } from './index';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -167,6 +168,11 @@ export const toogleFavorites = createAsyncThunk<void, FavoriteType, {
       isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
 
       if (location.includes(APIRoute.Offer)) {
+        if (id in store.getState().property.neighborsOffers) {
+          const neighborsOffers = store.getState().property.neighborsOffers;
+          dispatch(setNeighborsOffers({ ...neighborsOffers, [id]: offer }));
+          return;
+        }
         dispatch(setOffer(offer));
         return;
       }
