@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { addComment } from '../../store/api-actions';
@@ -10,8 +10,9 @@ export interface Review {
 }
 
 export function ReviewForm(): JSX.Element {
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
+  const [disableButton, setDisableButton] = useState(true);
   const offerId = useParams().id;
   const MIN_REVIEW_LENGTH = 50;
   const MAX_REVIEW_LENGTH = 300;
@@ -19,9 +20,26 @@ export function ReviewForm(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const checkReview = () => {
+    if (rating !== 0) {
+      if (reviewText.length > MAX_REVIEW_LENGTH) {
+        toast.error('Длина отзыва не может быть длинее 300 символов');
+        return setDisableButton(true);
+      }
+      if (reviewText.length > MIN_REVIEW_LENGTH) {
+        return setDisableButton(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkReview();
+  }, [rating, reviewText]);
+
   const handleRatingChange: React.ChangeEventHandler<HTMLInputElement> = (evt) => {
     const { value } = evt.target;
-    setRating(Number(value));
+    setRating((prev) => prev = Number(value));
+
   };
 
   const handleReviewTextChange: React.ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
@@ -31,7 +49,8 @@ export function ReviewForm(): JSX.Element {
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if(reviewText.length < MIN_REVIEW_LENGTH || reviewText.length > MAX_REVIEW_LENGTH){
+    setDisableButton(true);
+    if (reviewText.length < MIN_REVIEW_LENGTH || reviewText.length > MAX_REVIEW_LENGTH) {
       return toast.error('Комментарий должен содержать от 50 до 300 символов');
     }
     if (rating && reviewText !== null) {
@@ -156,7 +175,7 @@ export function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-
+          disabled={disableButton}
         >
           Submit
         </button>
