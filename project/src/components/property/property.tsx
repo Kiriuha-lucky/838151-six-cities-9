@@ -32,6 +32,7 @@ export function Property(): JSX.Element {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, [offerId]);
 
   if (!isDataLoaded) {
