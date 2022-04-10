@@ -21,7 +21,7 @@ export const errorHandle = (error: unknown): void => {
       case response.status === HTTP_CODE.NOT_FOUND:
         toast.error('Offer not found');
         break;
-      case response.status !==200:
+      default:
         toast.error(response.data.error);
         break;
     }
