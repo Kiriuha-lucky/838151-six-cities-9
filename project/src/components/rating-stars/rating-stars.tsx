@@ -10,7 +10,7 @@ const MAX_STARS = 5;
 
 export const RatingStars = memo(({ rating, children, className }: RatingStarsProps): JSX.Element => {
   const styleStar = {
-    width: `${rating * 100 / MAX_STARS}%`,
+    width: `${Math.round(rating) * 100 / MAX_STARS}%`,
   };
 
   return (
