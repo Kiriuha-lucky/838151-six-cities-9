@@ -14,7 +14,7 @@ export function ReviewForm(): JSX.Element {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const [disableButton, setDisableButton] = useState(true);
-  const [disableForm, setDisablrForm] = useState(false);
+  const [disableForm, setDisableForm] = useState(false);
   const offerId = useParams().id;
   const MIN_REVIEW_LENGTH = 50;
   const MAX_REVIEW_LENGTH = 300;
@@ -51,12 +51,16 @@ export function ReviewForm(): JSX.Element {
 
   const handleSubmit = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setDisablrForm(true);
+    setDisableForm(true);
     if (rating && reviewText !== null) {
-      await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
+      const action = await dispatch(addComment({ rating: rating, comment: reviewText, id: Number(offerId) }));
+      if(action.type.includes('rejected') ){
+        setDisableForm(false);
+        return;
+      }
       setRating(1);
       setReviewText('');
-      setDisablrForm(false);
+      setDisableForm(false);
       setDisableButton(true);
     }
   };
