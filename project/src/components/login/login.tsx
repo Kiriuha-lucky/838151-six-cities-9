@@ -9,6 +9,7 @@ import './login.css';
 import { AppRoutes } from '../../types/routes.types';
 import { AuthorizationStatus } from '../../types/authorization.types';
 import { getAuthorizationStatus } from '../../store/selectors/selectors';
+import { toast } from 'react-toastify';
 
 export function Login(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ export function Login(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
-
+  /*eslint-disable*/
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return (<Navigate to={AppRoutes.Main} />);
   }
@@ -28,8 +29,14 @@ export function Login(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    const pattern = /^(?=.*\d)[^a-z]*[a-z].*$/i;
+
 
     if (loginRef.current !== null && passwordRef.current !== null) {
+      if (!pattern.test(passwordRef.current.value)) {
+        toast.error('Пароль должен содержать минимум 1 цифру и 1 букву');
+        return;
+      }
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
