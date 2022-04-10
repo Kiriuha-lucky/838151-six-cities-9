@@ -8,18 +8,20 @@ export const errorHandle = (error: unknown): void => {
   }
 
   const { response } = error;
+
   if (response) {
-    switch (response.status) {
-      case HTTP_CODE.BAD_REQUEST:
+
+    switch (true) {
+      case response.status === HTTP_CODE.BAD_REQUEST:
         toast.error(response.data.error);
         break;
-      case HTTP_CODE.UNAUTHORIZED:
+      case response.status === HTTP_CODE.UNAUTHORIZED:
         toast.error(response.data.error);
         break;
-      case HTTP_CODE.NOT_FOUND:
-        toast.error('Not found');
+      case response.status === HTTP_CODE.NOT_FOUND:
+        toast.error('Offer not found');
         break;
-      case HTTP_CODE.SERVER_NOT_AVAILABLE:
+      case response.status !==200:
         toast.error(response.data.error);
         break;
     }
