@@ -32,6 +32,7 @@ export function ReviewForm(): JSX.Element {
         return setDisableButton(false);
       }
     }
+    return setDisableButton(true);
   };
 
   useEffect(() => {
