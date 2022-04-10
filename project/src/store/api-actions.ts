@@ -18,6 +18,7 @@ import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-lis
 import { normalize, schema } from 'normalizr';
 import { AppDispatch } from '../types/state';
 import { store } from './index';
+import { clearUser, setUser } from './user/user';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -100,8 +101,9 @@ export const requireAuthAction = createAsyncThunk<void, undefined, {
   'requireAuthAction',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get(APIRoute.Login);
+      const { data } = await api.get(APIRoute.Login);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
     } catch (error) {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
@@ -116,9 +118,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
     try {
-      const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(token);
+      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+      saveToken(data.token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
     } catch (error) {
       errorHandle(error);
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
@@ -136,6 +139,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(clearUser());
   },
 );
 

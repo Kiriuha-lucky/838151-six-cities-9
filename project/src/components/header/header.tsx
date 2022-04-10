@@ -9,6 +9,7 @@ import { APIRoute } from '../../types/api.types';
 export const Header = memo((): JSX.Element => {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(({ user }) => user);
   const isAuthorized = authorizationStatus !== AuthorizationStatus.Auth;
 
   const logout = function (evt: React.SyntheticEvent) {
@@ -44,8 +45,9 @@ export const Header = memo((): JSX.Element => {
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={APIRoute.FavoritesOffers}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      <img src={currentUser.avatarUrl} alt="avatar" />
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{currentUser.email}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -58,7 +60,7 @@ export const Header = memo((): JSX.Element => {
           )}
         </div>
       </div>
-    </header>
+    </header >
   );
 });
 

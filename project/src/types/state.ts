@@ -1,4 +1,4 @@
-import {store} from '../store/index';
+import { store } from '../store/index';
 import { AuthorizationStatus } from './authorization.types';
 import { Offer } from './offer.types';
 import { ReviewType } from './review.types';
