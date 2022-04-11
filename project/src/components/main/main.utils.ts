@@ -1,5 +1,5 @@
-import { OffersSortingType } from '../../types/state';
 import { Offer } from '../../types/offer.types';
+import { OffersSortingType } from '../../types/state';
 
 function getOffersSortingFunction(offersSortingType: OffersSortingType) {
   switch (offersSortingType) {
@@ -14,5 +14,5 @@ function getOffersSortingFunction(offersSortingType: OffersSortingType) {
   }
 }
 export function getCurrentOffers(offers: Offer[], currentCity: string, offersSortingType: OffersSortingType) {
-  return Object.values(offers).filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
+  return offers.filter((offer) => offer.city.name === currentCity).sort(getOffersSortingFunction(offersSortingType));
 }

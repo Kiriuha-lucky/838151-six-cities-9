@@ -6,6 +6,7 @@ import { offersList } from './offers-list/offers-list';
 import { property } from './property/property';
 import { sort } from './sort/sort';
 import { favoritesOffersList } from './favorites-offers-list/favorites-offers-list';
+import { user } from './user/user';
 
 export const rootReducer = combineReducers({
   offersList: offersList.reducer,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   sort: sort.reducer,
   currentCity: currentCity.reducer,
   favoritesOffersList: favoritesOffersList.reducer,
+  user: user.reducer,
 });

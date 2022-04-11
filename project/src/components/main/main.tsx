@@ -8,13 +8,14 @@ import { Header } from '../header/header';
 import { fetchOffersAction } from '../../store/api-actions';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Spinner } from '../spinner/spinner';
+import { getOffers } from '../../store/selectors/selectors';
 
 export function Main(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offers = useAppSelector(({ offersList }) => offersList);
+  const offers = useAppSelector(getOffers);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const city = useAppSelector(({ currentCity }) => currentCity);
-  const offersSortingType = useAppSelector((state) => state.sort);
+  const offersSortingType = useAppSelector(({sort}) => sort);
 
   const currentOffers = useMemo(() => getCurrentOffers(offers, city, offersSortingType), [offers, city, offersSortingType]);
 

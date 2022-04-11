@@ -8,6 +8,7 @@ import { useAppSelector } from '../../hooks';
 
 interface MapProps {
   offers: Offer[],
+  currentOffer?: Offer,
 }
 
 const defaultCustomIcon = new Icon({
@@ -22,11 +23,18 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export function Map({ offers }: MapProps): JSX.Element {
+export function Map({ offers, currentOffer }: MapProps): JSX.Element {
   const city = offers[0].city;
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const selectedOfferId = useAppSelector(({ activeOffer }) => activeOffer);
+  let selectedOfferId = 0;
+  const selectedOfferFromStore = useAppSelector(({ activeOffer }) => activeOffer);
+  if(currentOffer) {
+    selectedOfferId = currentOffer.id;
+    offers.push(currentOffer);
+  } else {
+    selectedOfferId = selectedOfferFromStore;
+  }
 
   useEffect(() => {
     if (map) {

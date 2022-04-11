@@ -14,16 +14,18 @@ export function OffersList({ offers, className }: OffersListProps): JSX.Element 
 
   return (
     <ul className={`${listClassName} places__list tabs__content`} style={{ listStyle: 'none' }}>
-      {offers.map((offer) => {
-        const { id } = offer;
-        return (
-          <li key={id}
-            onMouseEnter={() => { dispatch(selectedOfferId(id)); }}
-            onMouseLeave={() => { dispatch(selectedOfferId(0)); }}
-          >
-            <PlaceCard {...offer} className={className} />
-          </li>);
-      })}
+      {offers.map((offer) => className === 'near-places' ? (
+        <li key={offer.id}>
+          <PlaceCard {...offer} className={className} />
+        </li>
+      ) : (
+        <li key={offer.id}
+          onMouseEnter={() => { dispatch(selectedOfferId(offer.id)); }}
+          onMouseLeave={() => { dispatch(selectedOfferId(0)); }}
+        >
+          <PlaceCard {...offer} className={className} />
+        </li>
+      ))}
     </ul>
   );
 }

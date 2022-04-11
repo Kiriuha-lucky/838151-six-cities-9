@@ -1,4 +1,4 @@
-import {store} from '../store/index';
+import { store } from '../store/index';
 import { AuthorizationStatus } from './authorization.types';
 import { Offer } from './offer.types';
 import { ReviewType } from './review.types';
@@ -10,7 +10,7 @@ export interface Offers {
 export interface Property {
   currentOffer: Offer,
   reviews: ReviewType[],
-  neighborsOffers: Offer[]
+  neighborsOffers: { [offesrId: number]: Offer }
 }
 
 export interface Auth {
@@ -18,8 +18,7 @@ export interface Auth {
 }
 
 export type OffersSortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
-export interface Control {
-  selectedOfferId: number,
-}
+
+export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

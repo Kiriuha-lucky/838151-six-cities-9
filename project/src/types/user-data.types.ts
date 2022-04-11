@@ -1,6 +1,9 @@
-export interface UserData  {
-  id: number;
-  email: string;
-  token: string;
+export interface UserData {
+  avatarUrl: string,
+  email: string,
+  id: number,
+  isPro: boolean,
+  name: string,
+  token: string,
 }
 

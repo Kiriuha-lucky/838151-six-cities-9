@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 import { Offer } from '../types/offer.types';
 import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
-import { api } from '../store';
-import { store } from '../store';
+import { State } from '../types/state';
 import { APIRoute } from '../types/api.types';
 import { AuthData } from '../types/auth-data.types';
 import { AuthorizationStatus } from '../types/authorization.types';
@@ -17,40 +16,55 @@ import { setNeighborsOffers, setOffer, setReviews } from './property/property';
 import { FavoriteType } from '../types/favorite.types';
 import { deleteFavoritesOffer, setFavoritesOffers } from './favorites-offers-list/favorites-offers-list';
 import { normalize, schema } from 'normalizr';
+import { AppDispatch } from '../types/state';
+import { store } from './index';
+import { clearUser, setUser } from './user/user';
 
-export const fetchOffersAction = createAsyncThunk(
+export const fetchOffersAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'fetchOffersAction',
-  async () => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Offers);
       const offerSchema = new schema.Entity('offers');
       const offerListSchema = new schema.Array(offerSchema);
       const normalizedData = normalize(data, offerListSchema);
-      store.dispatch(setOffers(normalizedData.entities.offers));
+      dispatch(setOffers(normalizedData.entities.offers));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const fetchFavoritesOffersAction = createAsyncThunk(
+export const fetchFavoritesOffersAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'fetchOffersAction',
-  async () => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<Offer[]>(APIRoute.Favorite);
       const offerSchema = new schema.Entity('offers');
       const offerListSchema = new schema.Array(offerSchema);
       const normalizedData = normalize(data, offerListSchema);
-      store.dispatch(setFavoritesOffers(normalizedData.entities.offers));
+      dispatch(setFavoritesOffers(normalizedData.entities.offers));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const fetchOfferAction = createAsyncThunk(
+export const fetchOfferAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'fetchOfferAction',
-  async (id: number) => {
+  async (id, { dispatch, extra: api }) => {
     function getOffer() {
       return api.get<Offer>(`${APIRoute.Offers}/${id}`);
     }
@@ -65,9 +79,12 @@ export const fetchOfferAction = createAsyncThunk(
 
     await Promise.all([getOffer(), getReviews(), getNeighborsOffers()])
       .then(axios.spread((d1, d2, d3) => {
-        store.dispatch(setOffer(d1.data));
-        store.dispatch(setReviews(d2.data));
-        store.dispatch(setNeighborsOffers(d3.data));
+        dispatch(setOffer(d1.data));
+        dispatch(setReviews(d2.data));
+        const offerSchema = new schema.Entity('offers');
+        const offerListSchema = new schema.Array(offerSchema);
+        const normalizedData = normalize(d3.data, offerListSchema);
+        dispatch(setNeighborsOffers(normalizedData.entities.offers));
       }))
       .catch((Error) => {
         errorHandle(Error);
@@ -76,44 +93,63 @@ export const fetchOfferAction = createAsyncThunk(
 );
 
 
-export const requireAuthAction = createAsyncThunk(
+export const requireAuthAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'requireAuthAction',
-  async () => {
+  async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.get(APIRoute.Login);
-      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const { data } = await api.get(APIRoute.Login);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
     } catch (error) {
-      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
 
-export const loginAction = createAsyncThunk(
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'login',
-  async ({ login: email, password }: AuthData) => {
+  async ({ login: email, password }, { dispatch, extra: api }) => {
     try {
-      const { data: { token } } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(token);
-      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+      saveToken(data.token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(setUser(data));
     } catch (error) {
       errorHandle(error);
-      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
 
-export const logoutAction = createAsyncThunk(
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'logout',
-  async () => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    dispatch(clearUser());
   },
 );
 
-export const addComment = createAsyncThunk(
+export const addComment = createAsyncThunk<void, Rating, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'addComment',
-  async ({ rating, comment, id }: Rating, { dispatch }) => {
+  async ({ rating, comment, id }, { dispatch, extra: api }) => {
     try {
       const { data } = await api.post(`${APIRoute.Comments}/${id}`, { comment, rating });
       toast.info('Комментарий добавлен');
@@ -124,14 +160,23 @@ export const addComment = createAsyncThunk(
   },
 );
 
-export const toogleFavorites = createAsyncThunk(
+export const toogleFavorites = createAsyncThunk<void, FavoriteType, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
   'inFavorites',
-  async ({ id, isFavorite, location }: FavoriteType, { dispatch }) => {
+  async ({ id, isFavorite, location }, { dispatch, extra: api }) => {
     try {
       const { data: offer }: AxiosResponse<Offer> = await api.post(`${APIRoute.Favorite}/${id}/${isFavorite}`);
       isFavorite ? toast.info('Добавлен в избранное') : toast.info('Удален из избранного');
 
       if (location.includes(APIRoute.Offer)) {
+        if (id in store.getState().property.neighborsOffers) {
+          const neighborsOffers = store.getState().property.neighborsOffers;
+          dispatch(setNeighborsOffers({ ...neighborsOffers, [id]: offer }));
+          return;
+        }
         dispatch(setOffer(offer));
         return;
       }

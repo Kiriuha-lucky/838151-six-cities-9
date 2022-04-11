@@ -32,6 +32,7 @@ export function Property(): JSX.Element {
 
   useEffect(() => {
     fetchData();
+    window.scrollTo(0, 0);
   }, [offerId]);
 
   if (!isDataLoaded) {
@@ -131,7 +132,7 @@ export function Property(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighborsOffers} />
+            <Map offers={Object.values(neighborsOffers)} currentOffer={currentOffer}/>
           </section>
         </section>
         <div className="container">
@@ -139,7 +140,7 @@ export function Property(): JSX.Element {
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
-            <OffersList offers={neighborsOffers} className='near-places' />
+            <OffersList offers={Object.values(neighborsOffers)} className='near-places' />
           </section>
         </div>
       </main>
