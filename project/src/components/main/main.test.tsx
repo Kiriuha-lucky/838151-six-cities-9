@@ -24,7 +24,7 @@ describe('Component: Main', () => {
     history.push('/');
     const store = mockStore({
       offersList: OFFERS,
-      auth: 'AUTH',
+      auth: 'UNKNOWN',
       sort: 'Popular',
       currentCity: 'Paris'
     })
